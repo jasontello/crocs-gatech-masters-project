@@ -44,7 +44,11 @@ test("the production build exposes an installable offline PWA shell", async ({
     .poll(() => page.evaluate(() => navigator.serviceWorker?.getRegistration()))
     .not.toBeNull();
 
+  await page.evaluate(() => navigator.serviceWorker.ready);
   await page.reload();
+  await expect
+    .poll(() => page.evaluate(() => Boolean(navigator.serviceWorker.controller)))
+    .toBe(true);
   await context.setOffline(true);
   await page.reload();
   await expect(page.getByRole("heading", { name: "Your fridge" })).toBeVisible();
