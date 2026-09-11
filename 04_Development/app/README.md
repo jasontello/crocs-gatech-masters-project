@@ -46,7 +46,7 @@ GitHub Actions deploys a verified production build from `main` to <https://jason
 - Recover when the camera finds nothing, sees multiple products, has low confidence, finds conflicting results, or cannot read a printed date
 - Detect a demo product automatically, whether the match comes from a barcode or a visual food cue
 - Show a fullscreen camera state and ask “Is this it?” before adding the match
-- Keep the phone experience portrait-only and replace landscape with a rotate-phone instruction
+- Support the phone experience in portrait and landscape orientations
 - Test a deterministic leftover-tuna flow with two context questions and a cited recommended use-by date
 - Test a packaged-salsa flow that confirms a printed date without unnecessary questions
 - Review a selected photo before simulated analysis

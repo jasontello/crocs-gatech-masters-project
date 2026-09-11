@@ -3,7 +3,7 @@ import { spawn } from "node:child_process";
 import { launch } from "chrome-launcher";
 import lighthouse from "lighthouse";
 
-const url = "http://127.0.0.1:4173/crocs-gatech-masters-project/";
+const url = "http://127.0.0.1:4173/crocs-gatech-masters-project/?skipIntro";
 const preview = spawn("npm", ["run", "preview"], { stdio: "inherit" });
 
 async function waitForServer() {

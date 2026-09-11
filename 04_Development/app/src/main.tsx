@@ -5,6 +5,6 @@ import "./styles/global.css";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <App skipIntro={!new URLSearchParams(window.location.search).has("intro")} />
+    <App skipIntro={new URLSearchParams(window.location.search).has("skipIntro")} />
   </StrictMode>,
 );

@@ -4,7 +4,7 @@ import { expect, test } from "@playwright/test";
 test("homepage works at a mobile viewport and has no serious accessibility violations", async ({
   page,
 }) => {
-  await page.goto("./");
+  await page.goto("./?skipIntro");
 
   await expect(page.getByRole("heading", { name: "Your fridge" })).toBeVisible();
   await expect(page.getByText("Georgia Tech CS 8903")).toBeVisible();
@@ -27,7 +27,7 @@ test("the production build exposes an installable offline PWA shell", async ({
   context,
   page,
 }) => {
-  await page.goto("./");
+  await page.goto("./?skipIntro");
 
   const manifestResponse = await page.request.get("./manifest.webmanifest");
   expect(manifestResponse.ok()).toBe(true);
@@ -57,7 +57,7 @@ test("the production build exposes an installable offline PWA shell", async ({
 
 test("homepage remains usable in landscape", async ({ page }) => {
   await page.setViewportSize({ width: 844, height: 390 });
-  await page.goto("./");
+  await page.goto("./?skipIntro");
 
   await expect(page.getByRole("heading", { name: "Your fridge" })).toBeVisible();
   await expect(page.getByRole("button", { name: "Scan groceries" })).toBeVisible();
