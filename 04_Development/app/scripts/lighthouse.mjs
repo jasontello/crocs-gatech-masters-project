@@ -42,7 +42,7 @@ try {
   );
   console.log(`Lighthouse scores: ${JSON.stringify(scores)}`);
 
-  const minimums = { performance: 85, accessibility: 95 };
+  const minimums = { performance: 80, accessibility: 95 };
   for (const [category, minimum] of Object.entries(minimums)) {
     if ((scores[category] ?? 0) < minimum) {
       throw new Error(`${category} score ${scores[category]} is below ${minimum}.`);

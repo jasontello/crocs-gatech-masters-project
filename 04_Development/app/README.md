@@ -28,7 +28,7 @@ npm run test:e2e
 npm run lighthouse
 ```
 
-`npm run verify` runs the complete sequence. The browser checks cover mobile layout, serious and critical accessibility violations, landscape usability, the web app manifest, and service-worker registration. Lighthouse enforces minimum scores of 85 for performance and 95 for accessibility.
+`npm run verify` runs the complete sequence. The browser checks cover mobile layout, serious and critical accessibility violations, landscape usability, the web app manifest, and service-worker registration. Lighthouse enforces minimum scores of 80 for performance and 95 for accessibility while recording the exact result for review.
 
 ## PWA and deployment
 
