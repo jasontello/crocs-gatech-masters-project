@@ -28,9 +28,46 @@ To what extent can camera-assisted food logging reduce the time and effort requi
 - Expiration-date tracking
 - Mobile-responsive interface
 
-## Project Status
+## Setup-A status
 
-Early research and prototyping phase.
+This repository contains the functional, mobile-responsive web prototype used for Georgia Tech CS 8903 A03 Setup-A. The application is an installable PWA with an offline application shell. GitHub Actions runs type checking, linting, unit tests, browser accessibility checks, a production build, and Lighthouse before GitHub Pages deployment.
+
+The recognition and camera experiences remain deterministic research simulations. Full inventory infrastructure, authentication, a backend, and production image recognition are intentionally outside the Setup-A scope.
+
+## Live application
+
+- Application: <https://jasontello.github.io/crocs-gatech-masters-project/>
+- Source: <https://github.com/jasontello/crocs-gatech-masters-project>
+
+## Local development
+
+The application requires Node.js 24 and npm. From the repository root:
+
+```bash
+cd 04_Development/app
+npm ci
+npm run dev
+```
+
+Vite prints the local address. Because the production deployment uses a GitHub Pages project path, the local app is available at `/crocs-gatech-masters-project/`.
+
+## Verification
+
+Run the complete local verification suite after installing Playwright's Chromium browser:
+
+```bash
+cd 04_Development/app
+npx playwright install chromium
+npm run verify
+```
+
+The suite runs type checking, linting, 27 unit tests, the production build, mobile browser and automated accessibility checks, PWA registration checks, and Lighthouse. Lighthouse writes its JSON output to `04_Development/app/reports/lighthouse.json`.
+
+## Deployment
+
+Pushing to `main` starts `.github/workflows/deploy.yml`. The workflow repeats all checks, uploads `04_Development/app/dist`, and deploys it to GitHub Pages only if verification passes.
+
+Pull requests use `.github/workflows/ci.yml`. Both workflows can also be run manually from the repository's Actions tab.
 
 ## Course
 
