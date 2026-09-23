@@ -14,7 +14,7 @@ npm ci
 npm run dev
 ```
 
-Open the local address printed by Vite at `/crocs-gatech-masters-project/`. Use `npm run dev -- --host 0.0.0.0` to test from a phone on the same Wi-Fi network.
+Open the local address printed by Vite at `/crocs-gatech-masters-project/` for the research landing page. Select **Launch Prototype**, or open `/crocs-gatech-masters-project/?prototype` directly, to use the refrigerator inventory app. Use `npm run dev -- --host 0.0.0.0` to test from a phone on the same Wi-Fi network.
 
 ## Validation
 
@@ -28,13 +28,13 @@ npm run test:e2e
 npm run lighthouse
 ```
 
-`npm run verify` runs the complete sequence. The browser checks cover mobile layout, serious and critical accessibility violations, landscape usability, the web app manifest, and service-worker registration. Lighthouse enforces minimum scores of 80 for performance and 95 for accessibility while recording the exact result for review.
+`npm run verify` runs the complete sequence. The browser checks cover both the landing page and prototype, mobile layout, serious and critical accessibility violations, landscape usability, the web app manifest, service-worker registration, and offline navigation. Lighthouse checks the landing page, enforces minimum scores of 80 for performance and 95 for accessibility, and records the exact result for review.
 
 ## PWA and deployment
 
 The production build includes a web app manifest, install icons, an automatically registered service worker, and a precached offline application shell. Web delivery copies of the original editorial PNGs are generated during build without changing the source artwork.
 
-GitHub Actions deploys a verified production build from `main` to <https://jasontello.github.io/crocs-gatech-masters-project/>. See the repository root README and `.github/workflows/deploy.yml` for the complete CI/CD path.
+GitHub Actions deploys a verified production build from `main` to <https://jasontello.github.io/crocs-gatech-masters-project/>. That URL shows the landing page; <https://jasontello.github.io/crocs-gatech-masters-project/?prototype> opens the prototype. See the repository root README and `.github/workflows/deploy.yml` for the complete CI/CD path.
 
 ## Implemented prototype behavior
 

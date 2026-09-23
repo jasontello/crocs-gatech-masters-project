@@ -30,13 +30,14 @@ To what extent can camera-assisted food logging reduce the time and effort requi
 
 ## Setup-A status
 
-This repository contains the functional, mobile-responsive web prototype used for Georgia Tech CS 8903 A03 Setup-A. The application is an installable PWA with an offline application shell. GitHub Actions runs type checking, linting, unit tests, browser accessibility checks, a production build, and Lighthouse before GitHub Pages deployment.
+This repository contains a research project landing page and the functional, mobile-responsive web prototype used for Georgia Tech CS 8903 A03 Setup-A. The landing page opens at the GitHub Pages project URL, and its **Launch Prototype** link opens the existing refrigerator inventory application. The site is an installable PWA with an offline application shell. GitHub Actions runs type checking, linting, unit tests, browser accessibility checks, a production build, and Lighthouse before GitHub Pages deployment.
 
 The recognition and camera experiences remain deterministic research simulations. Full inventory infrastructure, authentication, a backend, and production image recognition are intentionally outside the Setup-A scope.
 
 ## Live application
 
 - Application: <https://jasontello.github.io/crocs-gatech-masters-project/>
+- Prototype: <https://jasontello.github.io/crocs-gatech-masters-project/?prototype>
 - Source: <https://github.com/jasontello/crocs-gatech-masters-project>
 
 ## Local development
@@ -49,7 +50,7 @@ npm ci
 npm run dev
 ```
 
-Vite prints the local address. Because the production deployment uses a GitHub Pages project path, the local app is available at `/crocs-gatech-masters-project/`.
+Vite prints the local address. Open `/crocs-gatech-masters-project/` for the landing page and `/crocs-gatech-masters-project/?prototype` for the refrigerator inventory prototype.
 
 ## Verification
 
@@ -61,7 +62,7 @@ npx playwright install chromium
 npm run verify
 ```
 
-The suite runs type checking, linting, 27 unit tests, the production build, mobile browser and automated accessibility checks, PWA registration checks, and Lighthouse. Lighthouse writes its JSON output to `04_Development/app/reports/lighthouse.json`.
+The suite runs type checking, linting, unit tests, the production build, mobile browser and automated accessibility checks for both entry points, PWA registration and offline navigation checks, and Lighthouse. Lighthouse writes its JSON output to `04_Development/app/reports/lighthouse.json`.
 
 ## Deployment
 
