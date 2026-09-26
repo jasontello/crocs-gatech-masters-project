@@ -45,6 +45,8 @@ export function LandingPage() {
           <img
             className="landing-hero-image"
             src={`${import.meta.env.BASE_URL}assets/editorial/imperfect-orange.webp`}
+            width={640}
+            height={640}
             alt=""
             aria-hidden="true"
           />
@@ -61,11 +63,22 @@ export function LandingPage() {
 
           <section className="landing-section landing-section-split" aria-labelledby="goal-heading">
             <h2 id="goal-heading">Research Goal</h2>
-            <p>
-              This project explores whether a camera-assisted refrigerator inventory interface can
-              reduce the effort required to record and manage food compared with manual inventory
-              entry.
-            </p>
+            <div className="landing-copy">
+              <p>
+                This project explores whether a camera-assisted refrigerator inventory interface can
+                reduce the effort required to record and manage food compared with manual inventory entry.
+              </p>
+              <h3>Research Question</h3>
+              <p>
+                To what extent can camera-assisted food logging reduce the time and effort required
+                to maintain a refrigerator inventory compared with manual entry?
+              </p>
+              <p>
+                Planned evaluation will compare task-completion time, recognition corrections, and
+                perceived effort across the two entry methods. Reduced food waste is a longer-term
+                motivation; it has not been demonstrated by this prototype.
+              </p>
+            </div>
           </section>
 
           <section className="landing-section landing-prototype" aria-labelledby="prototype-heading">
@@ -85,12 +98,106 @@ export function LandingPage() {
             </div>
           </section>
 
-          <section className="landing-section landing-section-split" aria-labelledby="stage-heading">
-            <h2 id="stage-heading">Current Stage</h2>
-            <p>
-              This is an active Georgia Tech CROCS research prototype. It is still being developed
-              and evaluated.
+          <section className="landing-section landing-workflow" aria-labelledby="workflow-heading">
+            <h2 id="workflow-heading">How the System Works</h2>
+            <p className="landing-workflow-intro">
+              The mobile-first concept follows the sequence below. The current prototype lets users
+              explore the intake and review interactions with simulated recognition results.
             </p>
+            <ol className="landing-workflow-list">
+              <li>
+                <h3>Scan on phone</h3>
+                <p>
+                  Start camera-assisted intake or select a food photo. The prototype simulates
+                  scanning and supports local photo selection and preview, with manual entry as a fallback.
+                </p>
+              </li>
+              <li>
+                <h3>Review recognition results</h3>
+                <p>
+                  Confirm or correct the suggested item and review uncertain matches before adding
+                  a batch. Current suggestions come from scripted demo scenarios.
+                </p>
+              </li>
+              <li>
+                <h3>Maintain refrigerator inventory</h3>
+                <p>
+                  View items and date urgency, edit details, and mark food used or discarded.
+                  Inventory is saved in this browser on this device.
+                </p>
+              </li>
+              <li>
+                <h3>Access across devices (future)</h3>
+                <p>
+                  A future shared inventory could connect phone intake with desktop and web access
+                  through a synchronized backend. Cross-device synchronization is not implemented.
+                </p>
+              </li>
+            </ol>
+          </section>
+
+          <section className="landing-section landing-section-split" aria-labelledby="stage-heading">
+            <div>
+              <h2 id="stage-heading">Current Stage</h2>
+              <p className="landing-status-date">
+                Documented <time dateTime="2026-09-26">September 26, 2026</time>
+              </p>
+            </div>
+            <div className="landing-copy">
+              <p>
+                This Georgia Tech CROCS project is an interaction prototype for exploring the food
+                logging workflow. Inventory management, local photo preview, and browser storage
+                work; recognition is simulated so the review and recovery paths can be explored.
+              </p>
+              <p>
+                Next research steps are to define the comparison tasks and measures, then evaluate
+                camera-assisted entry against manual entry. No completed participant studies or
+                measured reductions in logging effort or food waste are reported here.
+              </p>
+            </div>
+          </section>
+
+          <section className="landing-section landing-section-split" aria-labelledby="limitations-heading">
+            <div>
+              <h2 id="limitations-heading">Current Limitations</h2>
+              <p className="landing-status-date">
+                Documented <time dateTime="2026-09-26">September 26, 2026</time>
+              </p>
+            </div>
+            <ul className="landing-detail-list">
+              <li>
+                Camera permission, the scanner preview, barcode lookup, food recognition, and
+                printed-date reading use deterministic simulations. There is no live AI recognition service.
+              </li>
+              <li>
+                Inventory uses browser local storage. There are no accounts, shared households,
+                cloud backups, or real-time cross-device updates. Clearing browser data removes saved inventory.
+              </li>
+              <li>
+                Estimated use-first dates are illustrative guidance, not verified package-specific
+                expiration dates or a guarantee of food safety.
+              </li>
+              <li>
+                Marking food used or discarded removes it from the active inventory; a persistent
+                outcome history and study measurements are not implemented.
+              </li>
+            </ul>
+          </section>
+
+          <section className="landing-section landing-section-split" aria-labelledby="vision-heading">
+            <h2 id="vision-heading">System Vision</h2>
+            <div className="landing-copy">
+              <p>
+                The intended direction is phone-based capture, user-reviewed recognition, and a
+                shared refrigerator inventory that can also be accessed from desktop or web.
+                Mobile and desktop clients would use the same backend rather than separate device inventories.
+              </p>
+              <p>
+                Future development would require real camera and recognition integration, a backend
+                with household access controls and synchronization, and a way to measure logging
+                effort and inventory outcomes. These are planned capabilities, not features of the current prototype.
+              </p>
+            </div>
           </section>
 
           <section className="landing-section landing-section-split" aria-labelledby="information-heading">

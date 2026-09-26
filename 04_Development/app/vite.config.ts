@@ -16,6 +16,9 @@ export default defineConfig({
           "icons/*.png",
         ],
         cleanupOutdatedCaches: true,
+        // Activate published updates instead of leaving an older shell in control.
+        skipWaiting: true,
+        clientsClaim: true,
         navigateFallback: "index.html",
       },
     }),

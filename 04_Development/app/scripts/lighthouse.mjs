@@ -25,14 +25,15 @@ try {
   chrome = await launch({ chromeFlags: ["--headless", "--no-sandbox"] });
   const result = await lighthouse(url, {
     port: chrome.port,
-    output: "json",
+    output: ["json", "html"],
     logLevel: "error",
     onlyCategories: ["performance", "accessibility", "best-practices", "seo"],
   });
   if (!result) throw new Error("Lighthouse returned no result.");
 
   await mkdir("reports", { recursive: true });
-  await writeFile("reports/lighthouse.json", result.report);
+  await writeFile("reports/lighthouse.json", result.report[0]);
+  await writeFile("reports/lighthouse.html", result.report[1]);
 
   const scores = Object.fromEntries(
     Object.entries(result.lhr.categories).map(([id, category]) => [
@@ -42,7 +43,12 @@ try {
   );
   console.log(`Lighthouse scores: ${JSON.stringify(scores)}`);
 
-  const minimums = { performance: 80, accessibility: 95 };
+  const minimums = {
+    performance: 90,
+    accessibility: 95,
+    "best-practices": 90,
+    seo: 90,
+  };
   for (const [category, minimum] of Object.entries(minimums)) {
     if ((scores[category] ?? 0) < minimum) {
       throw new Error(`${category} score ${scores[category]} is below ${minimum}.`);
