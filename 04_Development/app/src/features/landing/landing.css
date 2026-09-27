@@ -207,6 +207,38 @@ body:has(.landing-page) {
   margin-top: 20px !important;
 }
 
+.landing-screen-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+  margin-top: 28px;
+}
+
+.landing-screen {
+  min-width: 0;
+  margin: 0;
+}
+
+.landing-screen a {
+  display: block;
+}
+
+.landing-screen img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+}
+
+.landing-screen figcaption {
+  margin-top: 18px;
+}
+
+.landing-screen figcaption p {
+  margin-top: 8px;
+  font-size: 0.9375rem;
+}
+
 .landing-workflow-list {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -331,6 +363,16 @@ body:has(.landing-page) {
   .landing-workflow-list {
     grid-template-columns: 1fr;
     gap: 24px;
+  }
+
+  .landing-screen-gallery {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .landing-screen {
+    width: min(100%, 390px);
+    justify-self: center;
   }
 }
 

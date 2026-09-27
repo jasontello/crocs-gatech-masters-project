@@ -12,6 +12,27 @@ const prototypeFeatures = [
   "Edit, use, discard, or remove items",
 ];
 
+const prototypeScreens = [
+  {
+    file: "home",
+    title: "Home overview",
+    alt: "Prototype home screen with three tracked groceries and two items to use soon.",
+    caption: "A summary of the demo inventory highlights food to use first and provides an entry point for scanning groceries.",
+  },
+  {
+    file: "inventory",
+    title: "Refrigerator inventory",
+    alt: "My Fridge screen with search and sample milk, chicken, and yogurt grouped by date urgency.",
+    caption: "Users can search their inventory and open individual items to review or update their details.",
+  },
+  {
+    file: "recognition-review",
+    title: "Review a suggested item",
+    alt: "Simulated camera recognition screen suggesting Whole Milk with options to confirm or edit it.",
+    caption: "The simulated recognition flow asks users to confirm or correct a suggested item before adding it to a batch.",
+  },
+];
+
 export function LandingPage() {
   return (
     <div className="landing-page">
@@ -95,6 +116,37 @@ export function LandingPage() {
                 prototyping. Live AI recognition is not implemented.
               </p>
               <a className="landing-text-link" href={prototypeUrl}>Launch Prototype</a>
+            </div>
+          </section>
+
+          <section id="prototype-screens" className="landing-section" aria-labelledby="screens-heading">
+            <h2 id="screens-heading">Prototype Screens</h2>
+            <p className="landing-status-date">
+              Captured <time dateTime="2026-09-26">September 26, 2026</time> · Sample groceries and simulated recognition.
+              Select an image to view the full screenshot.
+            </p>
+            <div className="landing-screen-gallery">
+              {prototypeScreens.map((screen) => (
+                <figure className="landing-screen" key={screen.file}>
+                  <a
+                    href={`${import.meta.env.BASE_URL}assets/prototype/${screen.file}.webp`}
+                    aria-label={`View full screenshot: ${screen.title}`}
+                  >
+                    <img
+                      src={`${import.meta.env.BASE_URL}assets/prototype/${screen.file}.webp`}
+                      width={780}
+                      height={1688}
+                      loading="lazy"
+                      decoding="async"
+                      alt={screen.alt}
+                    />
+                  </a>
+                  <figcaption>
+                    <h3>{screen.title}</h3>
+                    <p>{screen.caption}</p>
+                  </figcaption>
+                </figure>
+              ))}
             </div>
           </section>
 
