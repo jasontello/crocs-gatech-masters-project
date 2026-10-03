@@ -1,27 +1,28 @@
 :root {
   font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  color: #111111;
-  background: #ffffff;
+  color: #171613;
+  background: #fdfbf7;
   color-scheme: light;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
-  --ink: #111111;
-  --paper: #ffffff;
-  --surface: #f4f4f1;
-  --surface-strong: #e9e9e5;
-  --line: #d5d5d0;
-  --urgent: #d83b20;
+  --ink: #171613;
+  --paper: #fdfbf7;
+  --surface: #f5f2eb;
+  --surface-strong: #ece7de;
+  --line: #ddd7cd;
+  --muted: #625e57;
+  --urgent: #c9341c;
   --urgent-soft: #fff5f2;
   --warning: #8f5a19;
   --warning-soft: #fff8eb;
   --fresh: #111111;
-  --fresh-soft: #f4f4f1;
+  --fresh-soft: #f5f2eb;
   --orange: #f26c21;
   --aubergine: #5a173a;
   --apple: #a8c62d;
   --lemon: #f2d229;
   --radius-shell: 18px;
-  --radius-control: 10px;
+  --radius-control: 16px;
   --space-screen: 24px;
   --space-stack: 16px;
 }
@@ -31,14 +32,14 @@
 }
 
 html {
-  background: #ffffff;
+  background: var(--paper);
 }
 
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background: #ffffff;
+  background: var(--paper);
 }
 
 .portrait-app {
@@ -223,8 +224,9 @@ textarea:focus-visible {
 
 .intro-copy h1 {
   font-size: clamp(1.65rem, 8vw, 2.2rem);
-  line-height: 1.05;
-  letter-spacing: -0.045em;
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
 }
 
 .intro-copy p {
@@ -235,7 +237,7 @@ textarea:focus-visible {
 
 .intro-eyebrow {
   font-size: 0.6875rem;
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
 }
@@ -265,16 +267,18 @@ textarea:focus-visible {
 }
 
 .screen-header h1 {
-  font-size: 1.45rem;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
+  font-size: 1.75rem;
+  font-weight: 400;
+  line-height: 1.16;
+  letter-spacing: -0.035em;
 }
 
 .screen-header p,
 .supporting-copy {
   max-width: 38ch;
+  color: var(--muted);
   font-size: 0.875rem;
-  line-height: 1.45;
+  line-height: 1.55;
 }
 
 .back-button,
@@ -303,9 +307,9 @@ textarea:focus-visible {
 .item-card {
   width: 100%;
   min-height: 52px;
-  border: 1px solid var(--ink);
+  border: 1px solid var(--line);
   border-radius: var(--radius-control);
-  font-weight: 700;
+  font-weight: 600;
   cursor: pointer;
 }
 
@@ -313,18 +317,22 @@ textarea:focus-visible {
   padding: 14px 16px;
   color: var(--paper);
   background: var(--ink);
+  border-color: var(--ink);
+  border-radius: 999px;
 }
 
 .secondary-button {
   padding: 14px 16px;
   color: var(--ink);
   background: var(--paper);
+  border-radius: 999px;
 }
 
 .danger-button {
   padding: 14px 16px;
   color: var(--paper);
   background: var(--ink);
+  border-radius: 999px;
   text-decoration: underline;
   text-underline-offset: 3px;
 }
@@ -347,7 +355,9 @@ textarea:focus-visible {
   justify-content: flex-start;
   gap: 8px;
   min-height: 140px;
-  padding: 18px;
+  padding: 20px;
+  border-color: transparent;
+  border-radius: 20px;
   background: var(--surface);
   text-align: left;
 }
@@ -405,7 +415,7 @@ textarea:focus-visible {
   border: 1px solid var(--line);
   border-radius: var(--radius-control);
   color: var(--ink);
-  background: var(--surface);
+  background: var(--paper);
 }
 
 .field-group textarea {
@@ -486,7 +496,7 @@ textarea:focus-visible {
   gap: 12px;
   min-height: 64px;
   padding: 12px;
-  border-color: transparent;
+  border-color: var(--line);
   background: var(--surface);
   text-align: left;
 }
@@ -584,8 +594,9 @@ textarea:focus-visible {
 }
 
 .bottom-navigation button[aria-current="page"] {
-  color: var(--paper);
-  background: var(--ink);
+  color: var(--ink);
+  background: var(--surface-strong);
+  font-weight: 700;
 }
 
 .nav-mark {
@@ -957,6 +968,7 @@ textarea:focus-visible {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  mix-blend-mode: multiply;
 }
 
 .product-thumb-small svg {
@@ -1896,11 +1908,10 @@ body:has(.camera-permission-dialog) {
 
 .home-screen .screen-header h1 {
   margin: 0;
-  font-size: clamp(3.1rem, 13.5vw, 3.45rem);
-  font-weight: 850;
-  line-height: 0.9;
-  letter-spacing: -0.065em;
-  text-transform: uppercase;
+  font-size: clamp(3rem, 12vw, 3.35rem);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.055em;
 }
 
 .home-screen .title-line {
@@ -1921,6 +1932,7 @@ body:has(.camera-permission-dialog) {
   width: 230px;
   height: 210px;
   object-fit: contain;
+  mix-blend-mode: multiply;
   pointer-events: none;
 }
 
@@ -1937,7 +1949,7 @@ body:has(.camera-permission-dialog) {
   gap: 1px;
   padding: 10px 0 14px;
   font-size: 0.68rem;
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: 0.015em;
   text-transform: uppercase;
 }
@@ -1949,7 +1961,7 @@ body:has(.camera-permission-dialog) {
 
 .home-screen .home-summary strong {
   font-size: 2.1rem;
-  font-weight: 850;
+  font-weight: 400;
   line-height: 1;
 }
 
@@ -1965,9 +1977,9 @@ body:has(.camera-permission-dialog) {
 .home-screen .priority-section .section-heading-row h2 {
   color: var(--ink);
   font-size: 1.05rem;
-  font-weight: 850;
+  font-weight: 600;
   letter-spacing: -0.025em;
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 .home-screen .priority-list {
@@ -1999,9 +2011,8 @@ body:has(.camera-permission-dialog) {
 
 .home-screen .priority-copy strong {
   font-size: 1rem;
-  font-weight: 850;
-  letter-spacing: -0.025em;
-  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: -0.015em;
 }
 
 .home-screen .priority-copy > span {
@@ -2040,10 +2051,9 @@ body:has(.camera-permission-dialog) {
 .home-screen .scan-groceries-button {
   min-height: 56px;
   margin-top: 14px;
-  border-radius: 8px;
+  border-radius: 999px;
   font-size: 0.875rem;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
+  letter-spacing: 0;
 }
 
 .home-screen .recent-section {
@@ -2059,9 +2069,9 @@ body:has(.camera-permission-dialog) {
   position: relative;
   z-index: 2;
   font-size: 1rem;
-  font-weight: 850;
+  font-weight: 600;
   letter-spacing: -0.025em;
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 .home-screen .recent-list {
@@ -2104,6 +2114,7 @@ body:has(.camera-permission-dialog) {
   width: 178px;
   height: 178px;
   object-fit: contain;
+  mix-blend-mode: multiply;
   pointer-events: none;
 }
 
@@ -2117,11 +2128,10 @@ body:has(.camera-permission-dialog) {
 .scanner-screen .screen-header h1,
 .inventory-screen .screen-header h1,
 .settings-screen .screen-header h1 {
-  font-size: 1.65rem;
-  font-weight: 850;
-  line-height: 1;
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1.12;
   letter-spacing: -0.04em;
-  text-transform: uppercase;
 }
 
 .scanner-screen .screen-header p,
@@ -2143,11 +2153,10 @@ body:has(.camera-permission-dialog) {
 }
 
 .photo-flow-screen .screen-header h1 {
-  font-size: 1.65rem;
-  font-weight: 850;
-  line-height: 1;
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1.12;
   letter-spacing: -0.04em;
-  text-transform: uppercase;
 }
 
 .photo-flow-screen .screen-header p {
@@ -2161,7 +2170,7 @@ body:has(.camera-permission-dialog) {
   gap: 10px;
   min-height: 245px;
   padding: 28px 22px;
-  border: 1px solid var(--ink);
+  border: 1px solid var(--line);
   border-radius: var(--radius-control);
   background: var(--surface);
   text-align: center;
@@ -2202,7 +2211,7 @@ body:has(.camera-permission-dialog) {
 
 .recognition-result {
   padding: 16px;
-  border: 2px solid var(--ink);
+  border: 1px solid var(--line);
   border-radius: var(--radius-control);
 }
 
@@ -2420,7 +2429,7 @@ body:has(.camera-permission-dialog) {
   min-height: 54px;
   margin-top: auto;
   border: 0;
-  border-radius: 8px;
+  border-radius: 999px;
   color: var(--paper);
   background: var(--ink);
 }
@@ -2436,8 +2445,8 @@ body:has(.camera-permission-dialog) {
 
 .inventory-screen .compact-field input {
   min-height: 50px;
-  border: 0;
-  background: var(--surface);
+  border: 1px solid var(--line);
+  background: var(--paper);
 }
 
 .inventory-screen .urgency-groups {
@@ -2451,7 +2460,7 @@ body:has(.camera-permission-dialog) {
 .inventory-screen .urgency-group .section-heading-row h2,
 .inventory-screen .urgency-group .section-heading-row > span {
   font-size: 1rem;
-  font-weight: 850;
+  font-weight: 600;
 }
 
 .inventory-screen .urgency-group .section-heading-row {
@@ -2662,7 +2671,7 @@ body:has(.camera-permission-dialog) {
 @media (min-width: 480px) and (hover: hover) and (pointer: fine) {
   html,
   body {
-    background: #e9e9e9;
+    background: var(--surface);
   }
 
   body {
@@ -2673,7 +2682,7 @@ body:has(.camera-permission-dialog) {
     min-height: min(820px, calc(100dvh - 48px));
     border: 1px solid var(--line);
     border-radius: var(--radius-shell);
-    box-shadow: 0 10px 30px rgb(0 0 0 / 8%);
+    box-shadow: 0 8px 24px rgb(23 22 19 / 5%);
   }
 }
 

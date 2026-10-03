@@ -1,14 +1,16 @@
 # CROCS visual system draft
 
-Drafted October 3, 2026. This is a design direction for the research website and refrigerator inventory prototype. It documents existing implementation choices separately from proposed desktop work. It is not a claim that a desktop app has been built.
+Drafted and revised October 3, 2026. This is a design direction for the research website and refrigerator inventory prototype. It documents implemented choices separately from proposed desktop work. It is not a claim that a desktop app has been built.
 
 ## Design read
 
-Use the opening refrigerator mark as the shared visual anchor: a simple white fridge drawn with a strong black outline, rounded corners, small hardware details, and a hard offset shadow. The interface should feel direct, practical, and easy to inspect. Food photos remain content, not brand decoration.
+Use the opening refrigerator mark as the shared visual anchor: a simple light fridge drawn with a strong dark outline, rounded corners, small hardware details, and a hard offset shadow. The interface should feel direct, practical, and easy to inspect. Food photos remain content, not brand decoration.
+
+The [ElevenLabs style reference on Refero](https://styles.refero.design/style/031056ff-7af1-46db-8daa-115f731c5d26) is a starting point for the interface language: warm paper, quiet neutral panels, thin dividers, generous space, lighter headings, and dark primary actions. These are visual principles, not a copy of ElevenLabs branding. CROCS keeps its own refrigerator symbol, food photography, research content, and urgency language. Its accent colors serve food and date states, not decorative product spheres.
 
 ## Source and current behavior
 
-The opening mark is drawn in CSS in `04_Development/app/src/styles/global.css`, inside `.fridge-mark`. Its outer body is 118 by 172 pixels, with a 4 pixel border, 16 pixel radius, and an 8 pixel black offset shadow. The handles, divider, and pale interior shelves are separate elements. The install icon in `04_Development/app/public/icons/fridge.svg` is a simpler white line icon on an aubergine tile. These are related assets, not identical drawings; keep their construction consistent when redesigning them.
+The opening mark is drawn in CSS in `04_Development/app/src/styles/global.css`, inside `.fridge-mark`. Its outer body is 118 by 172 pixels, with a 4 pixel border, 16 pixel radius, and an 8 pixel dark offset shadow. The handles, divider, and pale interior shelves are separate elements. A small rendering of that same CSS mark now appears in the research page header. The install icon in `04_Development/app/public/icons/fridge.svg` is still a simpler white line icon on an aubergine tile; its redesign remains open.
 
 The research website already uses a wider responsive layout. The linked prototype currently keeps `.app-shell` and `.intro-screen` at a maximum width of 420 pixels, even on a desktop monitor. At desktop pointer sizes, the body becomes gray and the app shell is presented as a centered phone. A true desktop inventory layout does not exist yet.
 
@@ -16,22 +18,23 @@ The research website already uses a wider responsive layout. The linked prototyp
 
 | Role | Current value | Use |
 | --- | --- | --- |
-| Ink | `#111111` | Main text, icon outline, primary actions |
-| Paper | `#ffffff` | Primary background and reversed button text |
-| Quiet surface | `#f4f4f1` | Input and supporting surfaces |
-| Strong surface | `#e9e9e5` | Hover and selected neutral surfaces |
-| Hairline | `#d5d5d0` | Section and component borders |
-| Urgent | `#d83b20` | Items needing attention, never the only urgency cue |
+| Ink | `#171613` | Main text, icon outline, primary actions |
+| Paper | `#fdfbf7` | Primary background and reversed button text |
+| Quiet surface | `#f5f2eb` | Supporting panels and cards |
+| Strong surface | `#ece7de` | Hover and selected neutral surfaces |
+| Hairline | `#ddd7cd` | Section and component borders |
+| Muted text | `#625e57` | Descriptions and dated captions |
+| Urgent | `#c9341c` | Items needing attention, never the only urgency cue |
 | Aubergine | `#5a173a` | Existing install icon background and limited secondary accent |
 
-The current application names Inter followed by system sans faces. Keep the same type family across web and app until a deliberate font decision is tested. Use size and weight to establish hierarchy. Reserve uppercase for short UI labels, not long paragraphs. Keep body copy readable at phone width.
+The application names Inter followed by system sans faces; it does not bundle ElevenLabs' display font. Use lighter weights and size for large headings, while keeping labels and food names legible. Reserve uppercase for short metadata labels. Keep body copy readable at phone width.
 
-Use an 8 pixel spacing rhythm with 4 pixel adjustments where necessary. The current app uses 24 pixel screen padding, 16 pixel stack gaps, and 10 pixel control radii. The research site uses a 1040 pixel maximum content width with 24 pixel side margins on larger screens and 20 pixel side margins on phones. Preserve those as the initial Figma tokens; proposed deviations should be marked as proposals.
+Use an 8 pixel spacing rhythm with 4 pixel adjustments where necessary. The current app uses 24 pixel screen padding, 16 pixel stack gaps, 16 pixel general control radii, and pill primary actions. Flat cards and hairline borders provide separation. The research site uses a 1040 pixel maximum content width with 24 pixel side margins on larger screens and 20 pixel side margins on phones. Preserve those as the initial Figma tokens; proposed deviations should be marked as proposals.
 
 ## Shared component families for Figma
 
 1. **Refrigerator mark:** black on white, monochrome reversed, and small icon sizes. Preserve the door split, handles, rounded silhouette, and hard shadow when size allows. At small sizes, omit interior shelf detail before sacrificing clarity.
-2. **Buttons and links:** primary black fill, secondary white fill with black border, text link, and visible focus. Show default, hover, focus, disabled, and loading states where applicable. Use the same labels as the product.
+2. **Buttons and links:** primary dark pill, secondary paper pill with hairline border, text link, and visible focus. Show default, hover, focus, disabled, and loading states where applicable. Use the same labels as the product.
 3. **Fields:** search and manual item inputs with persistent labels, helper text, error text, and keyboard focus. Do not rely on placeholder text as the only label.
 4. **Inventory item:** food name, image or fallback icon, quantity, and date urgency. Provide fresh, use soon, and needs review variants with text as well as color.
 5. **Navigation:** phone bottom navigation for Home, Fridge, Scan, and Settings; a proposed desktop side navigation with the same destinations.

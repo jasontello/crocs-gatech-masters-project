@@ -41,7 +41,18 @@ export function LandingPage() {
 
       <header className="landing-header">
         <div className="landing-container landing-header-inner">
-          <span className="landing-wordmark">CROCS</span>
+          <span className="landing-brand">
+            <span className="landing-brand-mark" aria-hidden="true">
+              <span className="fridge-mark">
+                <span className="fridge-divider" />
+                <span className="fridge-handle fridge-handle-top" />
+                <span className="fridge-handle fridge-handle-bottom" />
+                <span className="fridge-shelf fridge-shelf-one" />
+                <span className="fridge-shelf fridge-shelf-two" />
+              </span>
+            </span>
+            <span className="landing-wordmark">CROCS</span>
+          </span>
           <span className="landing-header-context">Georgia Tech research project</span>
         </div>
       </header>
