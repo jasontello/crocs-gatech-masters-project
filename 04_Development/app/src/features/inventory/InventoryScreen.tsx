@@ -15,7 +15,8 @@ interface InventoryScreenProps {
   onUndo?: () => void;
 }
 
-type UrgencyGroup = "Use first" | "Use this week" | "Fresh for now" | "Date needs confirmation";
+type UrgencyGroup =
+  "Use first" | "Use this week" | "Fresh for now" | "Date needs confirmation";
 
 const urgencyClass: Record<UrgencyGroup, string> = {
   "Use first": "urgency-use-first",
@@ -44,7 +45,8 @@ const getGroup = (item: InventoryItem): UrgencyGroup => {
 
 const dateSource = (item: InventoryItem) => {
   if (item.dateType === "confirmed") return "Package date confirmed";
-  if (item.dateType === "needs-confirmation" || !item.expiresAt) return "Date needs confirmation";
+  if (item.dateType === "needs-confirmation" || !item.expiresAt)
+    return "Date needs confirmation";
   if (item.dateType === "recommended") return "Recommended use-by date";
   return "Estimated use-first date";
 };
@@ -63,7 +65,9 @@ export function InventoryScreen({
     const normalizedQuery = query.trim().toLowerCase();
     if (!normalizedQuery) return items;
     return items.filter((item) =>
-      [item.name, item.brand].filter(Boolean).some((value) => value!.toLowerCase().includes(normalizedQuery)),
+      [item.name, item.brand]
+        .filter(Boolean)
+        .some((value) => value!.toLowerCase().includes(normalizedQuery)),
     );
   }, [items, query]);
 
@@ -82,62 +86,111 @@ export function InventoryScreen({
         <div className="notice" role="status">
           <span>{notice}</span>
           {onUndo ? (
-            <button className="text-button" type="button" onClick={onUndo}>Undo</button>
+            <button className="text-button" type="button" onClick={onUndo}>
+              Undo
+            </button>
           ) : null}
         </div>
       ) : null}
 
-      <div className="field-group compact-field">
-        <label className="visually-hidden" htmlFor="inventory-search">Search my fridge</label>
-        <input
-          id="inventory-search"
-          type="search"
-          placeholder="Search product or brand"
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
-        />
-      </div>
+      <div className="inventory-workspace">
+        <div className="inventory-main">
+          <div className="field-group compact-field">
+            <label className="visually-hidden" htmlFor="inventory-search">
+              Search my fridge
+            </label>
+            <input
+              id="inventory-search"
+              type="search"
+              placeholder="Search product or brand"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+            />
+          </div>
 
-      {filteredItems.length ? (
-        <div className="urgency-groups">
-          {groupedItems.map(({ group, items: groupItems }) =>
-            groupItems.length ? (
-              <section
-                className={`urgency-group ${urgencyClass[group]}`}
-                key={group}
-                aria-labelledby={`group-${group.replaceAll(" ", "-")}`}
-              >
-                <div className="section-heading-row">
-                  <h2 id={`group-${group.replaceAll(" ", "-")}`}>{group}</h2>
-                  <span>{groupItems.length}</span>
-                </div>
-                <div className="fridge-list">
-                  {groupItems.map((item) => {
-                    const expiration = getExpirationSummary(item.expiresAt);
-                    return (
-                      <article className="fridge-item" key={item.id}>
-                        <button className="fridge-item-main" type="button" onClick={() => onOpenItem(item.id)}>
-                          <FoodIcon name={item.name} />
-                          <span className="fridge-item-copy">
-                            <strong>{item.name}</strong>
-                            <span className={`remaining-time status-${expiration.state}`}>{expiration.label}</span>
-                            <small>{item.quantity || "Quantity not set"} | {dateSource(item)}</small>
-                          </span>
-                        </button>
-                      </article>
-                    );
-                  })}
-                </div>
-              </section>
-            ) : null,
+          {filteredItems.length ? (
+            <div className="urgency-groups">
+              {groupedItems.map(({ group, items: groupItems }) =>
+                groupItems.length ? (
+                  <section
+                    className={`urgency-group ${urgencyClass[group]}`}
+                    key={group}
+                    aria-labelledby={`group-${group.replaceAll(" ", "-")}`}
+                  >
+                    <div className="section-heading-row">
+                      <h2 id={`group-${group.replaceAll(" ", "-")}`}>
+                        {group}
+                      </h2>
+                      <span>{groupItems.length}</span>
+                    </div>
+                    <div className="fridge-list">
+                      {groupItems.map((item) => {
+                        const expiration = getExpirationSummary(item.expiresAt);
+                        return (
+                          <article className="fridge-item" key={item.id}>
+                            <button
+                              className="fridge-item-main"
+                              type="button"
+                              onClick={() => onOpenItem(item.id)}
+                            >
+                              <FoodIcon name={item.name} />
+                              <span className="fridge-item-copy">
+                                <strong>{item.name}</strong>
+                                <span
+                                  className={`remaining-time status-${expiration.state}`}
+                                >
+                                  {expiration.label}
+                                </span>
+                                <small>
+                                  {item.quantity || "Quantity not set"} |{" "}
+                                  {dateSource(item)}
+                                </small>
+                              </span>
+                            </button>
+                          </article>
+                        );
+                      })}
+                    </div>
+                  </section>
+                ) : null,
+              )}
+            </div>
+          ) : (
+            <div className="empty-state">
+              <h2>
+                {items.length
+                  ? "No matching groceries"
+                  : "Your fridge is empty"}
+              </h2>
+              <p>
+                {items.length
+                  ? "Try a different search."
+                  : "Scan groceries to start your inventory."}
+              </p>
+            </div>
           )}
         </div>
-      ) : (
-        <div className="empty-state">
-          <h2>{items.length ? "No matching groceries" : "Your fridge is empty"}</h2>
-          <p>{items.length ? "Try a different search." : "Scan groceries to start your inventory."}</p>
-        </div>
-      )}
+        <aside
+          className="desktop-inventory-aside"
+          aria-label="Inventory overview"
+        >
+          <h2>Inventory overview</h2>
+          <p>
+            <strong>{items.length}</strong>{" "}
+            {items.length === 1 ? "item" : "items"} tracked in this browser
+          </p>
+          <p>
+            <strong>
+              {items.filter((item) => getGroup(item) === "Use first").length}
+            </strong>{" "}
+            to use first
+          </p>
+          <button className="primary-button" type="button" onClick={onScan}>
+            Add groceries
+          </button>
+          <small>Changes to this inventory stay on this device.</small>
+        </aside>
+      </div>
 
       <BottomNavigation
         activeSection="fridge"

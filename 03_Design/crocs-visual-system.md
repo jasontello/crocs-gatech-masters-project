@@ -12,7 +12,7 @@ The [ElevenLabs style reference on Refero](https://styles.refero.design/style/03
 
 The opening mark is drawn in CSS in `04_Development/app/src/styles/global.css`, inside `.fridge-mark`. Its outer body is 118 by 172 pixels, with a 4 pixel border, 16 pixel radius, and an 8 pixel dark offset shadow. The handles, divider, and pale interior shelves are separate elements. A small rendering of that same CSS mark now appears in the research page header. The install icon in `04_Development/app/public/icons/fridge.svg` is still a simpler white line icon on an aubergine tile; its redesign remains open.
 
-The research website already uses a wider responsive layout. The linked prototype currently keeps `.app-shell` and `.intro-screen` at a maximum width of 420 pixels, even on a desktop monitor. At desktop pointer sizes, the body becomes gray and the app shell is presented as a centered phone. A true desktop inventory layout does not exist yet.
+The research website uses a wider responsive layout. The linked prototype previously kept `.app-shell` and `.intro-screen` at a maximum width of 420 pixels, even on a desktop monitor. As of October 3, 2026, laptop widths of at least 960 pixels use persistent side navigation and wider Home, Fridge, and Scan workspaces. Secondary review and edit screens use a comfortable reading width. Phone widths retain the original bottom navigation. This is a responsive interface for the same browser-local prototype, not a synchronized multi-device inventory.
 
 ## Foundations
 
@@ -37,7 +37,7 @@ Use an 8 pixel spacing rhythm with 4 pixel adjustments where necessary. The curr
 2. **Buttons and links:** primary dark pill, secondary paper pill with hairline border, text link, and visible focus. Show default, hover, focus, disabled, and loading states where applicable. Use the same labels as the product.
 3. **Fields:** search and manual item inputs with persistent labels, helper text, error text, and keyboard focus. Do not rely on placeholder text as the only label.
 4. **Inventory item:** food name, image or fallback icon, quantity, and date urgency. Provide fresh, use soon, and needs review variants with text as well as color.
-5. **Navigation:** phone bottom navigation for Home, Fridge, Scan, and Settings; a proposed desktop side navigation with the same destinations.
+5. **Navigation:** phone bottom navigation for Home, Fridge, Scan, and Settings; desktop side navigation with the same destinations and active states.
 6. **Research site:** section heading, dated status, body copy, divider, prototype screenshot, and launch link. The mark should identify the site without competing with the project explanation.
 
 ## Responsive layout direction
@@ -50,9 +50,9 @@ Use a single column at 390 pixels as the Figma reference. Preserve the bottom na
 
 Explore a wider inventory list and a visible summary without enlarging the scanner beyond a comfortable reading measure. Keep scan and review interactions focused. Do not reinterpret two columns as two separate inventories.
 
-### Desktop, proposal only
+### Desktop, implemented first pass
 
-At roughly 1280 pixels, test a single shared app shell with a left navigation column, central inventory list, and a right item detail or use first panel. Camera intake remains a focused central flow that accepts desktop uploads or manual entry; phone capture stays the primary future concept. The desktop design must use the same inventory model and must not imply that account sync or a shared backend already exists. The research website can use its existing broad layout with clear shortcuts to project status and prototype evidence.
+At laptop widths, the app uses a 232 pixel navigation column. Home places the use first list beside the scan action and recent items. Fridge pairs the searchable inventory with a count and local storage summary. Scan pairs the simulated camera and manual entry controls with the current batch. Camera and permission dialogs are centered within the laptop viewport. Other flows use a wider reading measure without turning forms into very long rows. This layout uses the existing inventory model and does not imply that account sync or a shared backend exists. A richer item detail panel can be explored in later iterations.
 
 ## Accessibility and verification
 

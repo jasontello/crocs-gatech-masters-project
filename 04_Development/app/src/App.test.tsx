@@ -53,7 +53,7 @@ describe("unified camera grocery flow", () => {
     expect(screen.getByText(/added manually/i)).toBeInTheDocument();
   });
 
-  it("recovers from denied camera access through iPhone settings or manual entry", async () => {
+  it("recovers from denied camera access through browser settings or manual entry", async () => {
     const user = userEvent.setup();
     render(<App skipIntro />);
 
@@ -62,8 +62,8 @@ describe("unified camera grocery flow", () => {
     await user.click(screen.getByRole("button", { name: "Not now" }));
 
     expect(screen.getByRole("heading", { name: "Camera access is off" })).toBeInTheDocument();
-    expect(screen.getByText("Open iPhone Settings.")).toBeInTheDocument();
-    expect(screen.getByText(/find the browser you used/i)).toBeInTheDocument();
+    expect(screen.getByText("Open this site’s permissions in your browser.")).toBeInTheDocument();
+    expect(screen.getByText(/allow camera access, then return to CROCS/i)).toBeInTheDocument();
 
     await user.click(screen.getByRole("button", { name: "Enter manually" }));
     expect(screen.getByRole("heading", { name: "Enter grocery manually" })).toBeInTheDocument();

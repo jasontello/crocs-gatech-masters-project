@@ -11,6 +11,7 @@ const prototypeFeatures = [
   "Review uncertain items",
   "Track date urgency",
   "Edit, use, discard, or remove items",
+  "Use a wider desktop layout on a laptop",
 ];
 
 const prototypeScreens = [
@@ -214,8 +215,8 @@ export function LandingPage() {
               <li>
                 <h3>Access across devices (future)</h3>
                 <p>
-                  A future shared inventory could connect phone intake with desktop and web access
-                  through a synchronized backend. Cross-device synchronization is not implemented.
+                  The prototype now has a desktop layout, but its inventory stays in each browser.
+                  Sharing one inventory between a phone and laptop would require a synchronized backend.
                 </p>
               </li>
             </ol>
@@ -233,6 +234,8 @@ export function LandingPage() {
                 This Georgia Tech CROCS project is an interaction prototype for exploring the food
                 logging workflow. Inventory management, local photo preview, and browser storage
                 work; recognition is simulated so the review and recovery paths can be explored.
+                A wider laptop layout now provides side navigation and desktop views for inventory
+                and scanning while retaining the phone layout on smaller screens.
               </p>
               <p>
                 A draft evaluation plan now defines comparison tasks and measures. The next steps
@@ -246,7 +249,7 @@ export function LandingPage() {
             <div>
               <h2 id="limitations-heading">Current Limitations</h2>
               <p className="landing-status-date">
-                Documented <time dateTime="2026-09-26">September 26, 2026</time>
+                Updated <time dateTime="2026-10-03">October 3, 2026</time>
               </p>
             </div>
             <ul className="landing-detail-list">
@@ -256,7 +259,8 @@ export function LandingPage() {
               </li>
               <li>
                 Inventory uses browser local storage. There are no accounts, shared households,
-                cloud backups, or real-time cross-device updates. Clearing browser data removes saved inventory.
+                cloud backups, or real-time cross-device updates. The desktop view reads only that
+                laptop browser's inventory. Clearing browser data removes saved inventory.
               </li>
               <li>
                 Estimated use-first dates are illustrative guidance, not verified package-specific

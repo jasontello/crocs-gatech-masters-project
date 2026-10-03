@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import "./styles/global.css";
 import { OpeningAnimation } from "./components/OpeningAnimation";
+import { DesktopNavigation } from "./components/DesktopNavigation";
 import { HomeScreen } from "./features/home/HomeScreen";
 import { InventoryScreen } from "./features/inventory/InventoryScreen";
 import { ItemDetailsScreen } from "./features/inventory/ItemDetailsScreen";
@@ -23,6 +25,7 @@ import {
   toDateInput,
 } from "./services/prototypeData";
 import type { InventoryItem, ItemInput } from "./types/inventory";
+import type { PrimarySection } from "./components/BottomNavigation";
 
 type View =
   | "home"
@@ -59,7 +62,8 @@ const loadInitialInventory = (): InitialInventory => {
   } catch {
     return {
       items: createDemoItems(),
-      notice: "Saved prototype data could not be read. Sample items were restored.",
+      notice:
+        "Saved prototype data could not be read. Sample items were restored.",
     };
   }
 };
@@ -81,7 +85,9 @@ const buildManualItem = (input: ItemInput): InventoryItem => {
 
 const loadCameraPermission = (): CameraPermissionState => {
   try {
-    const savedPermission = window.localStorage.getItem(cameraPermissionStorageKey);
+    const savedPermission = window.localStorage.getItem(
+      cameraPermissionStorageKey,
+    );
     return savedPermission === "granted" || savedPermission === "denied"
       ? savedPermission
       : "prompt";
@@ -104,12 +110,12 @@ export default function App({ skipIntro = false }: AppProps) {
   const [scannerMessage, setScannerMessage] = useState<string>();
   const [successBatch, setSuccessBatch] = useState<InventoryItem[]>([]);
   const [batchEditItemId, setBatchEditItemId] = useState<string>();
-  const [batchEditReturn, setBatchEditReturn] = useState<BatchEditReturn>("scanner");
+  const [batchEditReturn, setBatchEditReturn] =
+    useState<BatchEditReturn>("scanner");
   const [manualDraft, setManualDraft] = useState<ItemInput>();
   const [photoStart, setPhotoStart] = useState<PhotoStart>("capture");
-  const [cameraPermission, setCameraPermission] = useState<CameraPermissionState>(
-    loadCameraPermission,
-  );
+  const [cameraPermission, setCameraPermission] =
+    useState<CameraPermissionState>(loadCameraPermission);
 
   useEffect(() => {
     localInventoryRepository.save(items);
@@ -131,7 +137,10 @@ export default function App({ skipIntro = false }: AppProps) {
 
   const finishIntro = () => {
     setShowIntro(false);
-    window.setTimeout(() => document.getElementById("main-content")?.focus(), 0);
+    window.setTimeout(
+      () => document.getElementById("main-content")?.focus(),
+      0,
+    );
   };
 
   const goHome = (message?: string) => {
@@ -172,7 +181,9 @@ export default function App({ skipIntro = false }: AppProps) {
           ? {
               ...item,
               ...input,
-              dateType: input.expiresAt ? item.dateType || "confirmed" : "needs-confirmation",
+              dateType: input.expiresAt
+                ? item.dateType || "confirmed"
+                : "needs-confirmation",
               updatedAt: new Date().toISOString(),
             }
           : item,
@@ -181,7 +192,10 @@ export default function App({ skipIntro = false }: AppProps) {
     setView("details");
   };
 
-  const removeInventoryItem = (id: string, action: "used" | "discarded" | "removed") => {
+  const removeInventoryItem = (
+    id: string,
+    action: "used" | "discarded" | "removed",
+  ) => {
     const target = items.find((item) => item.id === id);
     if (!target) return;
     setItems((current) => current.filter((item) => item.id !== id));
@@ -214,7 +228,9 @@ export default function App({ skipIntro = false }: AppProps) {
         : scannedItem.identificationStatus === "needs-review"
           ? "Product needs review"
           : "Product identified";
-    setScannerMessage(`${resultLabel}: ${scannedItem.name}. Confirm the details below.`);
+    setScannerMessage(
+      `${resultLabel}: ${scannedItem.name}. Confirm the details below.`,
+    );
   };
 
   const confirmPendingScan = () => {
@@ -227,14 +243,18 @@ export default function App({ skipIntro = false }: AppProps) {
   const addManualItemToBatch = (input: ItemInput) => {
     const item = buildManualItem(input);
     setBatch((current) => [...current, item]);
-    setScannerMessage(`${item.name} added manually. Continue scanning when ready.`);
+    setScannerMessage(
+      `${item.name} added manually. Continue scanning when ready.`,
+    );
     setManualDraft(undefined);
     setView("scanner");
   };
 
   const addPhotoItemToBatch = (item: InventoryItem) => {
     setBatch((current) => [...current, item]);
-    setScannerMessage(`${item.name} added from photo. Continue adding groceries when ready.`);
+    setScannerMessage(
+      `${item.name} added from photo. Continue adding groceries when ready.`,
+    );
     setView("scanner");
   };
 
@@ -254,14 +274,18 @@ export default function App({ skipIntro = false }: AppProps) {
     const updates = {
       ...input,
       identificationStatus: "identified" as const,
-      dateType: input.expiresAt ? "confirmed" as const : "needs-confirmation" as const,
+      dateType: input.expiresAt
+        ? ("confirmed" as const)
+        : ("needs-confirmation" as const),
       recognitionOutcome: "corrected" as const,
       updatedAt: new Date().toISOString(),
     };
 
     if (batchEditItemId) {
       setBatch((current) =>
-        current.map((item) => (item.id === batchEditItemId ? { ...item, ...updates } : item)),
+        current.map((item) =>
+          item.id === batchEditItemId ? { ...item, ...updates } : item,
+        ),
       );
       setBatchEditItemId(undefined);
       setView("batch-review");
@@ -282,7 +306,10 @@ export default function App({ skipIntro = false }: AppProps) {
           ? {
               ...item,
               identificationStatus: "identified",
-              dateType: item.dateType === "needs-confirmation" ? "estimated" : item.dateType,
+              dateType:
+                item.dateType === "needs-confirmation"
+                  ? "estimated"
+                  : item.dateType,
               recognitionOutcome: "confirmed",
               updatedAt: new Date().toISOString(),
             }
@@ -301,167 +328,195 @@ export default function App({ skipIntro = false }: AppProps) {
 
   if (showIntro) return <OpeningAnimation onComplete={finishIntro} />;
 
-  if (view === "home") {
-    return (
-      <HomeScreen
-        items={items}
-        notice={notice}
-        onScan={startScanner}
-        onOpenFridge={() => goToFridge()}
-        onOpenItem={openItem}
-        onSettings={() => setView("settings")}
-      />
-    );
-  }
+  const activeSection: PrimarySection =
+    view === "home"
+      ? "home"
+      : view === "fridge" || view === "details" || view === "edit"
+        ? "fridge"
+        : view === "settings"
+          ? "settings"
+          : "scan";
 
-  if (view === "fridge") {
-    return (
-      <InventoryScreen
-        items={items}
-        notice={notice}
-        onHome={() => goHome()}
-        onScan={startScanner}
-        onSettings={() => setView("settings")}
-        onOpenItem={openItem}
-        onUndo={removedItem ? undoRemoval : undefined}
-      />
-    );
-  }
+  const renderView = () => {
+    if (view === "home") {
+      return (
+        <HomeScreen
+          items={items}
+          notice={notice}
+          onScan={startScanner}
+          onOpenFridge={() => goToFridge()}
+          onOpenItem={openItem}
+          onSettings={() => setView("settings")}
+        />
+      );
+    }
 
-  if (view === "scanner") {
-    return (
-      <ScannerSessionScreen
-        batch={batch}
-        pending={pendingScan}
-        statusMessage={scannerMessage}
-        cameraPermission={cameraPermission}
-        onScan={simulateBarcodeScan}
-        onConfirm={confirmPendingScan}
-        onEdit={openPendingEdit}
-        onFinish={() => setView("batch-review")}
-        onManual={openManualEntry}
-        onFoodDetected={() => {
-          setPhotoStart("tuna");
-          setView("photo");
-        }}
-        onPhotoLab={() => {
-          setPhotoStart("capture");
-          setView("photo");
-        }}
-        onCameraPermissionChange={updateCameraPermission}
+    if (view === "fridge") {
+      return (
+        <InventoryScreen
+          items={items}
+          notice={notice}
+          onHome={() => goHome()}
+          onScan={startScanner}
+          onSettings={() => setView("settings")}
+          onOpenItem={openItem}
+          onUndo={removedItem ? undoRemoval : undefined}
+        />
+      );
+    }
+
+    if (view === "scanner") {
+      return (
+        <ScannerSessionScreen
+          batch={batch}
+          pending={pendingScan}
+          statusMessage={scannerMessage}
+          cameraPermission={cameraPermission}
+          onScan={simulateBarcodeScan}
+          onConfirm={confirmPendingScan}
+          onEdit={openPendingEdit}
+          onFinish={() => setView("batch-review")}
+          onManual={openManualEntry}
+          onFoodDetected={() => {
+            setPhotoStart("tuna");
+            setView("photo");
+          }}
+          onPhotoLab={() => {
+            setPhotoStart("capture");
+            setView("photo");
+          }}
+          onCameraPermissionChange={updateCameraPermission}
+          onHome={() => goHome()}
+          onInventory={() => goToFridge()}
+          onSettings={() => setView("settings")}
+        />
+      );
+    }
+
+    if (view === "photo") {
+      return (
+        <PhotoIntakeFlow
+          initialDetection={photoStart === "tuna" ? "tuna" : undefined}
+          onBack={() => setView("scanner")}
+          onManual={openManualEntry}
+          onAddItem={addPhotoItemToBatch}
+        />
+      );
+    }
+
+    if (view === "manual") {
+      return (
+        <ManualEntryForm
+          title={
+            manualDraft ? "Review corrected item" : "Enter grocery manually"
+          }
+          intro={
+            manualDraft
+              ? "The corrected food name is already filled in. Add any other details you know."
+              : "Use manual entry when a barcode is unavailable or unsuccessful."
+          }
+          submitLabel="Add to batch"
+          initialValues={manualDraft}
+          onSubmit={addManualItemToBatch}
+          onCancel={() => {
+            setManualDraft(undefined);
+            setView("scanner");
+          }}
+        />
+      );
+    }
+
+    if (view === "batch-edit" && batchEditItem) {
+      return (
+        <ManualEntryForm
+          title={`Edit ${batchEditItem.name}`}
+          intro="Confirm the product and date before continuing."
+          submitLabel="Save product"
+          initialValues={batchEditItem}
+          onSubmit={saveBatchEdit}
+          onCancel={() =>
+            setView(batchEditReturn === "review" ? "batch-review" : "scanner")
+          }
+        />
+      );
+    }
+
+    if (view === "batch-review") {
+      return (
+        <BatchReviewScreen
+          items={batch}
+          onMarkReady={markBatchItemReady}
+          onEdit={openBatchEdit}
+          onAddBatch={addBatchToFridge}
+          onBack={() => setView("scanner")}
+        />
+      );
+    }
+
+    if (view === "batch-success") {
+      return (
+        <BatchSuccessScreen
+          items={successBatch}
+          onViewFridge={() =>
+            goToFridge(
+              `${successBatch.length} ${successBatch.length === 1 ? "grocery" : "groceries"} added.`,
+            )
+          }
+        />
+      );
+    }
+
+    if (view === "settings") {
+      return (
+        <SettingsScreen
+          cameraPermission={cameraPermission}
+          onHome={() => goHome()}
+          onInventory={() => goToFridge()}
+          onScan={startScanner}
+          onResetCameraPermission={() => updateCameraPermission("prompt")}
+        />
+      );
+    }
+
+    if (view === "edit" && selectedItem) {
+      return (
+        <ManualEntryForm
+          title={`Edit ${selectedItem.name}`}
+          intro="Update the product details stored in your fridge."
+          submitLabel="Save changes"
+          initialValues={selectedItem}
+          onSubmit={updateInventoryItem}
+          onCancel={() => setView("details")}
+        />
+      );
+    }
+
+    if (view === "details" && selectedItem) {
+      return (
+        <ItemDetailsScreen
+          item={selectedItem}
+          onBack={() => goToFridge()}
+          onEdit={() => setView("edit")}
+          onRemove={() => removeInventoryItem(selectedItem.id, "removed")}
+          onUsed={() => removeInventoryItem(selectedItem.id, "used")}
+          onDiscarded={() => removeInventoryItem(selectedItem.id, "discarded")}
+        />
+      );
+    }
+
+    return null;
+  };
+
+  return (
+    <div className="prototype-frame">
+      <DesktopNavigation
+        activeSection={activeSection}
         onHome={() => goHome()}
         onInventory={() => goToFridge()}
+        onScan={startScanner}
         onSettings={() => setView("settings")}
       />
-    );
-  }
-
-  if (view === "photo") {
-    return (
-      <PhotoIntakeFlow
-        initialDetection={photoStart === "tuna" ? "tuna" : undefined}
-        onBack={() => setView("scanner")}
-        onManual={openManualEntry}
-        onAddItem={addPhotoItemToBatch}
-      />
-    );
-  }
-
-  if (view === "manual") {
-    return (
-      <ManualEntryForm
-        title={manualDraft ? "Review corrected item" : "Enter grocery manually"}
-        intro={
-          manualDraft
-            ? "The corrected food name is already filled in. Add any other details you know."
-            : "Use manual entry when a barcode is unavailable or unsuccessful."
-        }
-        submitLabel="Add to batch"
-        initialValues={manualDraft}
-        onSubmit={addManualItemToBatch}
-        onCancel={() => {
-          setManualDraft(undefined);
-          setView("scanner");
-        }}
-      />
-    );
-  }
-
-  if (view === "batch-edit" && batchEditItem) {
-    return (
-      <ManualEntryForm
-        title={`Edit ${batchEditItem.name}`}
-        intro="Confirm the product and date before continuing."
-        submitLabel="Save product"
-        initialValues={batchEditItem}
-        onSubmit={saveBatchEdit}
-        onCancel={() => setView(batchEditReturn === "review" ? "batch-review" : "scanner")}
-      />
-    );
-  }
-
-  if (view === "batch-review") {
-    return (
-      <BatchReviewScreen
-        items={batch}
-        onMarkReady={markBatchItemReady}
-        onEdit={openBatchEdit}
-        onAddBatch={addBatchToFridge}
-        onBack={() => setView("scanner")}
-      />
-    );
-  }
-
-  if (view === "batch-success") {
-    return (
-      <BatchSuccessScreen
-        items={successBatch}
-        onViewFridge={() =>
-          goToFridge(
-            `${successBatch.length} ${successBatch.length === 1 ? "grocery" : "groceries"} added.`,
-          )
-        }
-      />
-    );
-  }
-
-  if (view === "settings") {
-    return (
-      <SettingsScreen
-        cameraPermission={cameraPermission}
-        onHome={() => goHome()}
-        onInventory={() => goToFridge()}
-        onScan={startScanner}
-        onResetCameraPermission={() => updateCameraPermission("prompt")}
-      />
-    );
-  }
-
-  if (view === "edit" && selectedItem) {
-    return (
-      <ManualEntryForm
-        title={`Edit ${selectedItem.name}`}
-        intro="Update the product details stored in your fridge."
-        submitLabel="Save changes"
-        initialValues={selectedItem}
-        onSubmit={updateInventoryItem}
-        onCancel={() => setView("details")}
-      />
-    );
-  }
-
-  if (view === "details" && selectedItem) {
-    return (
-      <ItemDetailsScreen
-        item={selectedItem}
-        onBack={() => goToFridge()}
-        onEdit={() => setView("edit")}
-        onRemove={() => removeInventoryItem(selectedItem.id, "removed")}
-        onUsed={() => removeInventoryItem(selectedItem.id, "used")}
-        onDiscarded={() => removeInventoryItem(selectedItem.id, "discarded")}
-      />
-    );
-  }
-
-  return null;
+      <div className="prototype-content">{renderView()}</div>
+    </div>
+  );
 }
