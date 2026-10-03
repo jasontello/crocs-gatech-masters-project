@@ -2,6 +2,7 @@ import "./landing.css";
 
 const prototypeUrl = `${import.meta.env.BASE_URL}?prototype`;
 const repositoryUrl = "https://github.com/jasontello/crocs-gatech-masters-project";
+const evaluationPlanUrl = `${repositoryUrl}/blob/main/04_Development/app/docs/evaluation-plan.md`;
 
 const prototypeFeatures = [
   "View refrigerator inventory",
@@ -102,6 +103,27 @@ export function LandingPage() {
             </div>
           </section>
 
+          <section className="landing-section landing-section-split" aria-labelledby="evaluation-heading">
+            <div>
+              <h2 id="evaluation-heading">Evaluation Plan</h2>
+              <p className="landing-status-date">
+                Drafted <time dateTime="2026-10-03">October 3, 2026</time>
+              </p>
+            </div>
+            <div className="landing-copy">
+              <p>
+                A proposed pilot compares adding the same grocery through manual entry and the
+                simulated camera flow. It defines a consistent starting point, task completion,
+                timing, corrections, recovery notes, and perceived effort.
+              </p>
+              <p>
+                The plan also checks whether users understand that recognition and some dates are
+                simulated. No participant sessions or study results are reported yet.
+              </p>
+              <p><a className="landing-text-link" href={evaluationPlanUrl}>Read the proposed evaluation plan</a></p>
+            </div>
+          </section>
+
           <section className="landing-section landing-prototype" aria-labelledby="prototype-heading">
             <div>
               <h2 id="prototype-heading">Prototype</h2>
@@ -192,7 +214,7 @@ export function LandingPage() {
             <div>
               <h2 id="stage-heading">Current Stage</h2>
               <p className="landing-status-date">
-                Documented <time dateTime="2026-09-26">September 26, 2026</time>
+                Updated <time dateTime="2026-10-03">October 3, 2026</time>
               </p>
             </div>
             <div className="landing-copy">
@@ -202,8 +224,8 @@ export function LandingPage() {
                 work; recognition is simulated so the review and recovery paths can be explored.
               </p>
               <p>
-                Next research steps are to define the comparison tasks and measures, then evaluate
-                camera-assisted entry against manual entry. No completed participant studies or
+                A draft evaluation plan now defines comparison tasks and measures. The next steps
+                are mentor review and a pilot before evaluating the intake paths. No completed participant studies or
                 measured reductions in logging effort or food waste are reported here.
               </p>
             </div>
