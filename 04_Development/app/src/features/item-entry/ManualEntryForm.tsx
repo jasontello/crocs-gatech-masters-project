@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
+import { PhotoReference } from "./PhotoReference";
 import { ScreenLayout } from "../../components/ScreenLayout";
 import type { ItemInput } from "../../types/inventory";
 
@@ -7,6 +8,7 @@ interface ManualEntryFormProps {
   intro: string;
   submitLabel: string;
   initialValues?: ItemInput;
+  allowPhoto?: boolean;
   onSubmit: (input: ItemInput) => void;
   onCancel: () => void;
 }
@@ -23,6 +25,7 @@ export function ManualEntryForm({
   intro,
   submitLabel,
   initialValues,
+  allowPhoto = false,
   onSubmit,
   onCancel,
 }: ManualEntryFormProps) {
@@ -60,6 +63,7 @@ export function ManualEntryForm({
 
   return (
     <ScreenLayout title={title} intro={intro} onBack={onCancel} backLabel="Cancel">
+      {allowPhoto ? <PhotoReference /> : null}
       <form className="form-stack" onSubmit={handleSubmit} noValidate>
         <div className="field-group">
           <label htmlFor="item-name">Item name *</label>

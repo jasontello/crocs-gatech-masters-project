@@ -416,6 +416,7 @@ export default function App({ skipIntro = false }: AppProps) {
               : "Use manual entry when a barcode is unavailable or unsuccessful."
           }
           submitLabel="Add to batch"
+          allowPhoto
           initialValues={manualDraft}
           onSubmit={addManualItemToBatch}
           onCancel={() => {

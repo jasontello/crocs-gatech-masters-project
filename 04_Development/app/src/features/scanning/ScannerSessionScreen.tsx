@@ -258,6 +258,10 @@ export function ScannerSessionScreen({
             </button>
           </div>
 
+          <button className="secondary-button" type="button" onClick={() => onManual()}>
+            Add from a real photo
+          </button>
+
           <button
             className="unified-camera-preview"
             type="button"
