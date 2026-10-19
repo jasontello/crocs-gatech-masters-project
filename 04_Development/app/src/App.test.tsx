@@ -129,7 +129,7 @@ describe("unified camera grocery flow", () => {
     await user.click(screen.getByRole("button", { name: "Confirm item" }));
     expect(screen.getByText("Everything is ready")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Add 3 groceries to my fridge" })).toBeEnabled();
-  });
+  }, 10000); // Three simulated scans include real delays; allow slower CI runners.
 
   it("adds an AI-assisted leftover after asking only the needed questions", async () => {
     const user = userEvent.setup();
