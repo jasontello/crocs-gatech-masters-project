@@ -12,6 +12,7 @@ export type DateType = "estimated" | "recommended" | "confirmed" | "needs-confir
 export type RecommendationConfidence = "high" | "medium" | "low";
 
 export interface InventoryItem {
+  fridgeId?: string;
   id: string;
   name: string;
   brand?: string;

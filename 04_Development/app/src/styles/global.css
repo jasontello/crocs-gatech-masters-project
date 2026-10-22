@@ -3086,3 +3086,23 @@ a:focus-visible {
   outline: 3px solid var(--ink);
   outline-offset: 3px;
 }
+
+.fridge-picker {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 20px 24px 0;
+}
+.fridge-picker-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.fridge-picker-row label { font-weight: 600; }
+.fridge-picker select, .fridge-move select, .fridge-create input {
+  min-height: 44px; min-width: 0; max-width: 100%; padding: 10px 12px;
+  border: 1px solid var(--line, #ccc); border-radius: 8px; background: white; color: #171717; font: inherit;
+}
+.fridge-picker-row select { flex: 1; }
+.fridge-picker-row .secondary-button { width: auto; margin: 0; }
+.fridge-create { display: grid; gap: 12px; margin-top: 16px; max-width: 440px; }
+.fridge-move { display: grid; gap: 12px; margin: 24px 0; }
+@media (max-width: 600px) {
+  .fridge-picker { padding: 16px 20px 0; }
+  .fridge-picker-row label { width: 100%; }
+}

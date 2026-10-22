@@ -1,4 +1,10 @@
 import { useEffect, useState } from "react";
+import { FridgePicker } from "./components/FridgePicker";
+import {
+  loadFridges,
+  mainFridgeId,
+  fridgeStorageKey,
+} from "./services/fridges";
 import "./styles/global.css";
 import { OpeningAnimation } from "./components/OpeningAnimation";
 import { DesktopNavigation } from "./components/DesktopNavigation";
@@ -99,7 +105,18 @@ const loadCameraPermission = (): CameraPermissionState => {
 export default function App({ skipIntro = false }: AppProps) {
   const [initialInventory] = useState(loadInitialInventory);
   const [showIntro, setShowIntro] = useState(!skipIntro);
-  const [items, setItems] = useState(initialInventory.items);
+  const [items, setItems] = useState(() =>
+    initialInventory.items.map((item) => ({
+      ...item,
+      fridgeId: item.fridgeId || mainFridgeId,
+    })),
+  );
+  const [fridgeState, setFridgeState] = useState(() =>
+    loadFridges(initialInventory.items),
+  );
+  const visibleItems = items.filter(
+    (item) => item.fridgeId === fridgeState.selectedId,
+  );
   const [view, setView] = useState<View>("home");
   const [notice, setNotice] = useState(initialInventory.notice);
   const [selectedItemId, setSelectedItemId] = useState<string>();
@@ -118,8 +135,20 @@ export default function App({ skipIntro = false }: AppProps) {
     useState<CameraPermissionState>(loadCameraPermission);
 
   useEffect(() => {
-    localInventoryRepository.save(items);
+    try {
+      localInventoryRepository.save(items);
+    } catch {
+      /* Keep session inventory usable. */
+    }
   }, [items]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(fridgeStorageKey, JSON.stringify(fridgeState));
+    } catch {
+      /* Keep session selection usable. */
+    }
+  }, [fridgeState]);
 
   const updateCameraPermission = (permission: CameraPermissionState) => {
     setCameraPermission(permission);
@@ -212,7 +241,14 @@ export default function App({ skipIntro = false }: AppProps) {
 
   const undoRemoval = () => {
     if (!removedItem) return;
-    setItems((current) => [removedItem, ...current]);
+    setItems((current) => [
+      { ...removedItem, fridgeId: removedItem.fridgeId || mainFridgeId },
+      ...current,
+    ]);
+    setFridgeState((current) => ({
+      ...current,
+      selectedId: removedItem.fridgeId || mainFridgeId,
+    }));
     setNotice(`${removedItem.name} was restored.`);
     setRemovedItem(undefined);
   };
@@ -319,7 +355,11 @@ export default function App({ skipIntro = false }: AppProps) {
   };
 
   const addBatchToFridge = () => {
-    setItems((current) => [...batch, ...current]);
+    const assigned = batch.map((item) => ({
+      ...item,
+      fridgeId: fridgeState.selectedId,
+    }));
+    setItems((current) => [...assigned, ...current]);
     setSuccessBatch(batch);
     setBatch([]);
     setPendingScan(undefined);
@@ -341,7 +381,7 @@ export default function App({ skipIntro = false }: AppProps) {
     if (view === "home") {
       return (
         <HomeScreen
-          items={items}
+          items={visibleItems}
           notice={notice}
           onScan={startScanner}
           onOpenFridge={() => goToFridge()}
@@ -354,7 +394,7 @@ export default function App({ skipIntro = false }: AppProps) {
     if (view === "fridge") {
       return (
         <InventoryScreen
-          items={items}
+          items={visibleItems}
           notice={notice}
           onHome={() => goHome()}
           onScan={startScanner}
@@ -495,7 +535,26 @@ export default function App({ skipIntro = false }: AppProps) {
     if (view === "details" && selectedItem) {
       return (
         <ItemDetailsScreen
+          key={selectedItem.id}
           item={selectedItem}
+          fridges={fridgeState.fridges}
+          onMove={(id) => {
+            setItems((current) =>
+              current.map((item) =>
+                item.id === selectedItem.id
+                  ? {
+                      ...item,
+                      fridgeId: id,
+                      updatedAt: new Date().toISOString(),
+                    }
+                  : item,
+              ),
+            );
+            setFridgeState((current) => ({ ...current, selectedId: id }));
+            goToFridge(
+              `${selectedItem.name} moved to ${fridgeState.fridges.find((f) => f.id === id)?.name}.`,
+            );
+          }}
           onBack={() => goToFridge()}
           onEdit={() => setView("edit")}
           onRemove={() => removeInventoryItem(selectedItem.id, "removed")}
@@ -517,7 +576,31 @@ export default function App({ skipIntro = false }: AppProps) {
         onScan={startScanner}
         onSettings={() => setView("settings")}
       />
-      <div className="prototype-content">{renderView()}</div>
+      <div className="prototype-content">
+        {view !== "details" &&
+          view !== "edit" &&
+          view !== "settings" &&
+          view !== "batch-success" && (
+            <FridgePicker
+              fridges={fridgeState.fridges}
+              selectedId={fridgeState.selectedId}
+              intake={view !== "home" && view !== "fridge"}
+              onSelect={(id) => {
+                setFridgeState((current) => ({ ...current, selectedId: id }));
+                setNotice(undefined);
+              }}
+              onCreate={(name) => {
+                const id = createId();
+                setFridgeState((current) => ({
+                  fridges: [...current.fridges, { id, name }],
+                  selectedId: id,
+                }));
+                setNotice(undefined);
+              }}
+            />
+          )}
+        {renderView()}
+      </div>
     </div>
   );
 }

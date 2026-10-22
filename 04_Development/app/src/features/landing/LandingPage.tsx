@@ -226,7 +226,7 @@ export function LandingPage() {
             <div>
               <h2 id="stage-heading">Current Stage</h2>
               <p className="landing-status-date">
-                Updated <time dateTime="2026-10-03">October 3, 2026</time>
+                Updated <time dateTime="2026-10-21">October 21, 2026</time>
               </p>
             </div>
             <div className="landing-copy">
@@ -236,6 +236,8 @@ export function LandingPage() {
                 work; recognition is simulated so the review and recovery paths can be explored.
                 A wider laptop layout now provides side navigation and desktop views for inventory
                 and scanning while retaining the phone layout on smaller screens.
+                Users can create named fridges, switch between their inventories, choose a destination
+                for grocery batches, and move items between fridges. Existing items stay in Main fridge.
               </p>
               <p>
                 A draft evaluation plan now defines comparison tasks and measures. The next steps
@@ -249,7 +251,7 @@ export function LandingPage() {
             <div>
               <h2 id="limitations-heading">Current Limitations</h2>
               <p className="landing-status-date">
-                Updated <time dateTime="2026-10-03">October 3, 2026</time>
+                Updated <time dateTime="2026-10-21">October 21, 2026</time>
               </p>
             </div>
             <ul className="landing-detail-list">
@@ -258,7 +260,7 @@ export function LandingPage() {
                 printed-date reading use deterministic simulations. There is no live AI recognition service.
               </li>
               <li>
-                Inventory uses browser local storage. There are no accounts, shared households,
+                Named fridges and their inventory use browser local storage. There are no accounts, shared households,
                 cloud backups, or real-time cross-device updates. The desktop view reads only that
                 laptop browser's inventory. Clearing browser data removes saved inventory.
               </li>

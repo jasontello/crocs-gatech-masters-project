@@ -177,7 +177,7 @@ export function InventoryScreen({
           <h2>Inventory overview</h2>
           <p>
             <strong>{items.length}</strong>{" "}
-            {items.length === 1 ? "item" : "items"} tracked in this browser
+            {items.length === 1 ? "item" : "items"} tracked in this fridge
           </p>
           <p>
             <strong>

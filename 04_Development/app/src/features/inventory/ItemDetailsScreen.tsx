@@ -1,3 +1,4 @@
+import type { Fridge } from "../../services/fridges";
 import { useState } from "react";
 import { ScreenLayout } from "../../components/ScreenLayout";
 import type { InventoryItem } from "../../types/inventory";
@@ -5,6 +6,8 @@ import { getExpirationSummary } from "./expiration";
 
 interface ItemDetailsScreenProps {
   item: InventoryItem;
+  fridges?: Fridge[];
+  onMove?: (id: string) => void;
   onBack: () => void;
   onEdit: () => void;
   onRemove: () => void;
@@ -30,13 +33,16 @@ const formatMethod = (method: InventoryItem["entryMethod"]) => {
 
 const formatDateType = (item: InventoryItem) => {
   if (item.dateType === "confirmed") return "Package date confirmed";
-  if (item.dateType === "needs-confirmation" || !item.expiresAt) return "Date needs confirmation";
+  if (item.dateType === "needs-confirmation" || !item.expiresAt)
+    return "Date needs confirmation";
   if (item.dateType === "recommended") return "Recommended use by";
   return "Estimated use-first date";
 };
 
 export function ItemDetailsScreen({
   item,
+  fridges = [],
+  onMove,
   onBack,
   onEdit,
   onRemove,
@@ -44,6 +50,9 @@ export function ItemDetailsScreen({
   onDiscarded,
 }: ItemDetailsScreenProps) {
   const [confirmingRemoval, setConfirmingRemoval] = useState(false);
+  const [destination, setDestination] = useState(
+    item.fridgeId || "main-fridge",
+  );
   const expiration = getExpirationSummary(item.expiresAt);
 
   return (
@@ -84,7 +93,11 @@ export function ItemDetailsScreen({
       {item.continuouslyRefrigerated !== undefined ? (
         <div className="detail-row">
           <span>Storage context</span>
-          <strong>{item.continuouslyRefrigerated ? "Continuously refrigerated" : "Not confirmed"}</strong>
+          <strong>
+            {item.continuouslyRefrigerated
+              ? "Continuously refrigerated"
+              : "Not confirmed"}
+          </strong>
         </div>
       ) : null}
       {item.recommendationConfidence ? (
@@ -126,8 +139,47 @@ export function ItemDetailsScreen({
         </div>
       ) : null}
 
+      {fridges.length > 0 && (
+        <div className="detail-row">
+          <span>Fridge</span>
+          <strong>{fridges.find((f) => f.id === item.fridgeId)?.name}</strong>
+        </div>
+      )}
+      {fridges.length > 1 && onMove && (
+        <form
+          className="fridge-move"
+          onSubmit={(e) => {
+            e.preventDefault();
+            onMove(destination);
+          }}
+        >
+          <label htmlFor="move-fridge">Move to fridge</label>
+          <select
+            id="move-fridge"
+            value={destination}
+            onChange={(e) => setDestination(e.target.value)}
+          >
+            {fridges.map((f) => (
+              <option key={f.id} value={f.id}>
+                {f.name}
+              </option>
+            ))}
+          </select>
+          <button
+            type="submit"
+            className="secondary-button"
+            disabled={destination === item.fridgeId}
+          >
+            Move item
+          </button>
+        </form>
+      )}
       {confirmingRemoval ? (
-        <section className="confirmation-panel" role="alertdialog" aria-labelledby="remove-heading">
+        <section
+          className="confirmation-panel"
+          role="alertdialog"
+          aria-labelledby="remove-heading"
+        >
           <h2 id="remove-heading">Remove {item.name}?</h2>
           <p>You can undo this action from the inventory screen.</p>
           <div className="button-row">
@@ -152,7 +204,11 @@ export function ItemDetailsScreen({
             <button className="secondary-button" type="button" onClick={onUsed}>
               Mark as used
             </button>
-            <button className="secondary-button" type="button" onClick={onDiscarded}>
+            <button
+              className="secondary-button"
+              type="button"
+              onClick={onDiscarded}
+            >
               Mark as discarded
             </button>
           </div>
@@ -167,7 +223,8 @@ export function ItemDetailsScreen({
       )}
 
       <p className="research-note">
-        Research note: the logging method is retained locally for future study analysis.
+        Research note: the logging method is retained locally for future study
+        analysis.
       </p>
     </ScreenLayout>
   );
