@@ -1,6 +1,6 @@
-import { StrictMode } from "react";
+import { StrictMode, lazy, Suspense } from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App";
+const AccountApp = lazy(() => import("./features/account/AccountApp"));
 import { LandingPage } from "./features/landing/LandingPage";
 import "./styles/global.css";
 
@@ -9,7 +9,9 @@ const params = new URLSearchParams(window.location.search);
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     {params.has("prototype") ? (
-      <App skipIntro={params.has("skipIntro")} />
+      <Suspense fallback={<p>Loading prototype…</p>}>
+        <AccountApp skipIntro={params.has("skipIntro")} />
+      </Suspense>
     ) : (
       <LandingPage />
     )}

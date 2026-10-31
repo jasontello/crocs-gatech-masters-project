@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import type { InventorySnapshot } from "./services/cloudInventory";
 import { FridgePicker } from "./components/FridgePicker";
 import {
   loadFridges,
@@ -57,6 +58,8 @@ interface InitialInventory {
 
 interface AppProps {
   skipIntro?: boolean;
+  initialData?: InventorySnapshot;
+  onInventoryChange?: (snapshot: InventorySnapshot) => void;
 }
 
 const loadInitialInventory = (): InitialInventory => {
@@ -102,8 +105,14 @@ const loadCameraPermission = (): CameraPermissionState => {
   }
 };
 
-export default function App({ skipIntro = false }: AppProps) {
-  const [initialInventory] = useState(loadInitialInventory);
+export default function App({
+  skipIntro = false,
+  initialData,
+  onInventoryChange,
+}: AppProps) {
+  const [initialInventory] = useState<InitialInventory>(() =>
+    initialData ? { items: initialData.items } : loadInitialInventory(),
+  );
   const [showIntro, setShowIntro] = useState(!skipIntro);
   const [items, setItems] = useState(() =>
     initialInventory.items.map((item) => ({
@@ -111,8 +120,8 @@ export default function App({ skipIntro = false }: AppProps) {
       fridgeId: item.fridgeId || mainFridgeId,
     })),
   );
-  const [fridgeState, setFridgeState] = useState(() =>
-    loadFridges(initialInventory.items),
+  const [fridgeState, setFridgeState] = useState(
+    () => initialData?.fridgeState ?? loadFridges(initialInventory.items),
   );
   const visibleItems = items.filter(
     (item) => item.fridgeId === fridgeState.selectedId,
@@ -135,20 +144,26 @@ export default function App({ skipIntro = false }: AppProps) {
     useState<CameraPermissionState>(loadCameraPermission);
 
   useEffect(() => {
+    if (initialData) return;
     try {
       localInventoryRepository.save(items);
     } catch {
       /* Keep session inventory usable. */
     }
-  }, [items]);
+  }, [items, initialData]);
 
   useEffect(() => {
+    if (initialData) return;
     try {
       localStorage.setItem(fridgeStorageKey, JSON.stringify(fridgeState));
     } catch {
       /* Keep session selection usable. */
     }
-  }, [fridgeState]);
+  }, [fridgeState, initialData]);
+
+  useEffect(() => {
+    onInventoryChange?.({ items, fridgeState });
+  }, [items, fridgeState, onInventoryChange]);
 
   const updateCameraPermission = (permission: CameraPermissionState) => {
     setCameraPermission(permission);
@@ -510,6 +525,7 @@ export default function App({ skipIntro = false }: AppProps) {
     if (view === "settings") {
       return (
         <SettingsScreen
+          cloudStorage={!!initialData}
           cameraPermission={cameraPermission}
           onHome={() => goHome()}
           onInventory={() => goToFridge()}
@@ -569,7 +585,7 @@ export default function App({ skipIntro = false }: AppProps) {
 
   return (
     <div className="prototype-frame">
-      <DesktopNavigation
+      <DesktopNavigation cloudStorage={!!initialData}
         activeSection={activeSection}
         onHome={() => goHome()}
         onInventory={() => goToFridge()}

@@ -1,0 +1,64 @@
+.account-bar {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  background: #fff;
+  border-bottom: 1px solid #bbb;
+  color: #171717;
+}
+.account-bar p {
+  margin: 0 0 10px;
+  overflow-wrap: anywhere;
+}
+.account-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.account-bar button {
+  padding: 10px 14px;
+  border: 1px solid #777;
+  border-radius: 6px;
+  background: #fff;
+  color: #171717;
+  cursor: pointer;
+  font: inherit;
+  min-height: 44px;
+}
+.account-bar button:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+.account-bar button:focus-visible,
+.account-bar input:focus-visible {
+  outline: 3px solid #3467b1;
+  outline-offset: 3px;
+}
+.account-form {
+  max-width: 480px;
+  margin-top: 20px;
+}
+.account-form label {
+  display: block;
+  margin-bottom: 14px;
+  font-weight: 600;
+}
+.account-form input {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px;
+  border: 1px solid #777;
+  border-radius: 4px;
+  font: inherit;
+}
+.account-app {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+.account-bar [role="alert"] {
+  color: #9c2525;
+}

@@ -4,6 +4,7 @@ import type { CameraPermissionState } from "../scanning/ScannerSessionScreen";
 
 interface SettingsScreenProps {
   cameraPermission: CameraPermissionState;
+  cloudStorage?: boolean;
   onHome: () => void;
   onInventory: () => void;
   onScan: () => void;
@@ -17,6 +18,7 @@ const permissionLabel = (permission: CameraPermissionState) => {
 };
 
 export function SettingsScreen({
+  cloudStorage = false,
   cameraPermission,
   onHome,
   onInventory,
@@ -24,8 +26,15 @@ export function SettingsScreen({
   onResetCameraPermission,
 }: SettingsScreenProps) {
   return (
-    <ScreenLayout className="settings-screen" title="Settings" intro="Prototype preferences and storage details.">
-      <section className="settings-list" aria-label="Current prototype settings">
+    <ScreenLayout
+      className="settings-screen"
+      title="Settings"
+      intro="Prototype preferences and storage details."
+    >
+      <section
+        className="settings-list"
+        aria-label="Current prototype settings"
+      >
         <div className="setting-row">
           <div>
             <strong>Expiration reminders</strong>
@@ -43,23 +52,35 @@ export function SettingsScreen({
         <div className="setting-row">
           <div>
             <strong>Inventory storage</strong>
-            <span>Saved only in this browser</span>
+            <span>
+              {cloudStorage
+                ? "Use Save to account above to store changes"
+                : "Saved only in this browser"}
+            </span>
           </div>
-          <span className="setting-value">On device</span>
+          <span className="setting-value">
+            {cloudStorage ? "Account" : "On device"}
+          </span>
         </div>
         <div className="setting-row">
           <div>
             <strong>Camera access</strong>
             <span>Controls the first-use scanner experience</span>
           </div>
-          <span className="setting-value">{permissionLabel(cameraPermission)}</span>
+          <span className="setting-value">
+            {permissionLabel(cameraPermission)}
+          </span>
         </div>
       </section>
 
       <div className="placeholder-note">
         <strong>Camera permission demo</strong>
         <p>Reset access to test the first-time explanation again.</p>
-        <button className="secondary-button" type="button" onClick={onResetCameraPermission}>
+        <button
+          className="secondary-button"
+          type="button"
+          onClick={onResetCameraPermission}
+        >
           Reset camera permission
         </button>
       </div>

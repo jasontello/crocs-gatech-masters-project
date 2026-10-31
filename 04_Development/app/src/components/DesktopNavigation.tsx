@@ -3,6 +3,7 @@ import type { PrimarySection } from "./BottomNavigation";
 
 interface DesktopNavigationProps {
   activeSection: PrimarySection;
+  cloudStorage?: boolean;
   onHome: () => void;
   onInventory: () => void;
   onScan: () => void;
@@ -10,6 +11,7 @@ interface DesktopNavigationProps {
 }
 
 export function DesktopNavigation({
+  cloudStorage = false,
   activeSection,
   onHome,
   onInventory,
@@ -73,7 +75,7 @@ export function DesktopNavigation({
       </nav>
 
       <div className="desktop-sidebar-footer">
-        <p>Research prototype. Inventory is saved in this browser only.</p>
+        <p>{cloudStorage ? "Research prototype. Use Save to account to store changes." : "Research prototype. Inventory is saved in this browser only."}</p>
         <a href={import.meta.env.BASE_URL}>About the project</a>
       </div>
     </aside>

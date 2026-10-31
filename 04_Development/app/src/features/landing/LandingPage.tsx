@@ -209,14 +209,14 @@ export function LandingPage() {
                 <h3>Maintain refrigerator inventory</h3>
                 <p>
                   View items and date urgency, edit details, and mark food used or discarded.
-                  Inventory is saved in this browser on this device.
+                  Browser mode saves inventory on this device. The account storage pilot adds explicit cloud saves.
                 </p>
               </li>
               <li>
-                <h3>Access across devices (future)</h3>
+                <h3>Account storage pilot</h3>
                 <p>
-                  The prototype now has a desktop layout, but its inventory stays in each browser.
-                  Sharing one inventory between a phone and laptop would require a synchronized backend.
+                  The project owner can sign in, save inventory to Supabase, and refresh it on another device.
+                  Public account registration and live synchronization are not yet available.
                 </p>
               </li>
             </ol>
@@ -226,7 +226,7 @@ export function LandingPage() {
             <div>
               <h2 id="stage-heading">Current Stage</h2>
               <p className="landing-status-date">
-                Updated <time dateTime="2026-10-21">October 21, 2026</time>
+                Updated <time dateTime="2026-10-30">October 30, 2026</time>
               </p>
             </div>
             <div className="landing-copy">
@@ -237,7 +237,7 @@ export function LandingPage() {
                 A wider laptop layout now provides side navigation and desktop views for inventory
                 and scanning while retaining the phone layout on smaller screens.
                 Users can create named fridges, switch between their inventories, choose a destination
-                for grocery batches, and move items between fridges. Existing items stay in Main fridge.
+                for grocery batches, and move items between fridges. Existing items stay in Main fridge. An account storage pilot now provides private saves, explicit browser inventory import, and conflict detection. Personal account setup and device testing are the next verification step.
               </p>
               <p>
                 A draft evaluation plan now defines comparison tasks and measures. The next steps
@@ -251,7 +251,7 @@ export function LandingPage() {
             <div>
               <h2 id="limitations-heading">Current Limitations</h2>
               <p className="landing-status-date">
-                Updated <time dateTime="2026-10-21">October 21, 2026</time>
+                Updated <time dateTime="2026-10-30">October 30, 2026</time>
               </p>
             </div>
             <ul className="landing-detail-list">
@@ -260,9 +260,9 @@ export function LandingPage() {
                 printed-date reading use deterministic simulations. There is no live AI recognition service.
               </li>
               <li>
-                Named fridges and their inventory use browser local storage. There are no accounts, shared households,
-                cloud backups, or real-time cross-device updates. The desktop view reads only that
-                laptop browser's inventory. Clearing browser data removes saved inventory.
+                Browser mode remains local. Account mode requires an internet connection and explicit Save and Refresh actions.
+                Signup email delivery is currently restricted to the project team. Shared households, automatic synchronization,
+                offline account editing, and a recovery history are not implemented. Clearing browser data removes local inventory.
               </li>
               <li>
                 Estimated use-first dates are illustrative guidance, not verified package-specific
@@ -284,8 +284,8 @@ export function LandingPage() {
                 Mobile and desktop clients would use the same backend rather than separate device inventories.
               </p>
               <p>
-                Future development would require real camera and recognition integration, a backend
-                with household access controls and synchronization, and a way to measure logging
+                Future development would require real camera and recognition integration, household sharing
+                and automatic synchronization, and a way to measure logging
                 effort and inventory outcomes. These are planned capabilities, not features of the current prototype.
               </p>
             </div>
