@@ -42,6 +42,7 @@ export interface InventoryItem {
 }
 
 export interface ItemInput {
+  barcode?: string;
   name: string;
   brand?: string;
   packageSize?: string;

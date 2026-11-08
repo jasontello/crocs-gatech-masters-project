@@ -293,9 +293,15 @@ export default function App({
 
   const addManualItemToBatch = (input: ItemInput) => {
     const item = buildManualItem(input);
+    if (manualDraft?.barcode) {
+      item.entryMethod = "barcode";
+      item.barcode = manualDraft.barcode;
+      item.originalSuggestion = manualDraft.name;
+      item.recognitionOutcome = input.name === manualDraft.name ? "confirmed" : "corrected";
+    }
     setBatch((current) => [...current, item]);
     setScannerMessage(
-      `${item.name} added manually. Continue scanning when ready.`,
+      `${item.name} ${manualDraft?.barcode ? "added to the batch" : "added manually"}. Continue scanning when ready.`,
     );
     setManualDraft(undefined);
     setView("scanner");
@@ -463,10 +469,10 @@ export default function App({
       return (
         <ManualEntryForm
           title={
-            manualDraft ? "Review corrected item" : "Enter grocery manually"
+            manualDraft?.barcode ? "Review barcode match" : manualDraft ? "Review corrected item" : "Enter grocery manually"
           }
           intro={
-            manualDraft
+            manualDraft?.barcode ? "Check the product name and enter the date printed on your package." : manualDraft
               ? "The corrected food name is already filled in. Add any other details you know."
               : "Use manual entry when a barcode is unavailable or unsuccessful."
           }

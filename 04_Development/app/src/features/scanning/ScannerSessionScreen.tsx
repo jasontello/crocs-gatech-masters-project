@@ -1,3 +1,4 @@
+import { BarcodeLookup } from "./BarcodeLookup";
 import { useEffect, useRef, useState } from "react";
 import { BottomNavigation } from "../../components/BottomNavigation";
 import { ScreenLayout } from "../../components/ScreenLayout";
@@ -257,6 +258,8 @@ export function ScannerSessionScreen({
               Manual
             </button>
           </div>
+
+          <BarcodeLookup onMatch={onManual} />
 
           <button className="secondary-button" type="button" onClick={() => onManual()}>
             Add from a real photo
