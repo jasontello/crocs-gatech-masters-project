@@ -226,7 +226,7 @@ export function LandingPage() {
             <div>
               <h2 id="stage-heading">Current Stage</h2>
               <p className="landing-status-date">
-                Updated <time dateTime="2026-11-07">November 7, 2026</time>
+                Updated <time dateTime="2026-11-11">November 11, 2026</time>
               </p>
             </div>
             <div className="landing-copy">
@@ -234,7 +234,7 @@ export function LandingPage() {
                 This Georgia Tech CROCS project is an interaction prototype for exploring the food
                 logging workflow. Inventory management, local photo preview, and browser storage
                 work; recognition is simulated so the review and recovery paths can be explored.
-                In Scan groceries, enter a package barcode to look up its name in Open Food Facts. Try 3017620422003, review the suggestion, and add the date from your package.
+                In Scan groceries, take or choose a barcode photo. Check the decoded digits or type a package barcode to look up its name in Open Food Facts. Try 3017620422003, review the suggestion, and add the date from your package.
                 A wider laptop layout now provides side navigation and desktop views for inventory
                 and scanning while retaining the phone layout on smaller screens.
                 Users can create named fridges, switch between their inventories, choose a destination
@@ -252,12 +252,12 @@ export function LandingPage() {
             <div>
               <h2 id="limitations-heading">Current Limitations</h2>
               <p className="landing-status-date">
-                Updated <time dateTime="2026-11-07">November 7, 2026</time>
+                Updated <time dateTime="2026-11-11">November 11, 2026</time>
               </p>
             </div>
             <ul className="landing-detail-list">
               <li>
-                Camera permission, the scanner preview, camera barcode detection, food recognition, and
+                Camera permission, the scanner preview, live camera detection, food recognition, and
                 printed-date reading use deterministic simulations. Typed barcode lookup requires an internet connection and catalog coverage.
               </li>
               <li>

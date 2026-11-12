@@ -40,3 +40,31 @@ test("barcode lookup recovers from errors and accepts a corrected product", asyn
     page.getByText("Hazelnut spread added to the batch.", { exact: false }),
   ).toBeVisible();
 });
+
+test("reads a barcode image after an unreadable photo and sends the decoded digits to lookup", async ({
+  page,
+}) => {
+  await page.goto("./?prototype&skipIntro");
+  await page
+    .getByRole("main")
+    .getByRole("button", { name: "Scan groceries", exact: true })
+    .click();
+  const photo = page.getByLabel("Scan a barcode photo");
+  await photo.setInputFiles({
+    name: "broken.png",
+    mimeType: "image/png",
+    buffer: Buffer.from("invalid"),
+  });
+  await expect(
+    page.getByRole("status").filter({ hasText: "Could not read the barcode" }),
+  ).toBeVisible();
+  await photo.setInputFiles("e2e/fixtures/ean13.png");
+  await expect(page.getByLabel("Package barcode")).toHaveValue("4006381333931");
+  await page.route("**/api/v2/product/4006381333931.json?*", (route) =>
+    route.fulfill({
+      json: { status: 1, product: { product_name: "Test package" } },
+    }),
+  );
+  await page.getByRole("button", { name: "Look up product" }).click();
+  await expect(page.getByLabel("Item name *")).toHaveValue("Test package");
+});

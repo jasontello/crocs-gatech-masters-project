@@ -9,8 +9,26 @@ export function BarcodeLookup({
   const [code, setCode] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [reading, setReading] = useState(false);
   const active = useRef<AbortController | null>(null);
   useEffect(() => () => active.current?.abort(), []);
+
+  async function scanPhoto(file: File) {
+    setReading(true);
+    setCode("");
+    setMessage("Reading barcode…");
+    try {
+      const { readPackageBarcode } = await import("./readPackageBarcode");
+      setCode(await readPackageBarcode(file));
+      setMessage("Barcode found. Check the digits and select Look up product.");
+    } catch {
+      setMessage(
+        "Could not read the barcode. Try a clear photo with the bars upright, or type the digits below.",
+      );
+    } finally {
+      setReading(false);
+    }
+  }
 
   async function lookup(event: FormEvent) {
     event.preventDefault();
@@ -58,19 +76,35 @@ export function BarcodeLookup({
   return (
     <form className="form-stack" onSubmit={lookup}>
       <div className="field-group">
+        <label htmlFor="barcode-photo">Scan a barcode photo</label>
+        <input
+          id="barcode-photo"
+          type="file"
+          accept="image/*"
+          capture="environment"
+          disabled={loading || reading}
+          onChange={(event) => {
+            const file = event.target.files?.[0];
+            event.target.value = "";
+            if (file) void scanPhoto(file);
+          }}
+        />
+        <small>Photograph the whole barcode with the bars upright.</small>
+      </div>
+      <div className="field-group">
         <label htmlFor="package-barcode">Package barcode</label>
         <input
           id="package-barcode"
           inputMode="numeric"
           value={code}
-          disabled={loading}
+          disabled={loading || reading}
           onChange={(event) => {
             setCode(event.target.value);
             setMessage("");
           }}
         />
       </div>
-      <button className="secondary-button" disabled={loading}>
+      <button className="secondary-button" disabled={loading || reading}>
         Look up product
       </button>
       <span>
