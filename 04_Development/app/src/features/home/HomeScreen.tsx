@@ -57,7 +57,7 @@ export function HomeScreen({
         />
       )}
     >
-      <p className="project-context">CROCS · Georgia Tech CS 8903<br />Research demo with sample groceries and simulated recognition.</p>
+      <p className="project-context">Refrigerator Inventory<br />Research demo with sample groceries and simulated recognition.</p>
       {notice ? <div className="notice" role="status">{notice}</div> : null}
 
       <section className="home-summary" aria-label="Refrigerator summary">

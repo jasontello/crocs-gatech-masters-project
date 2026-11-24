@@ -250,8 +250,8 @@ export default function AccountApp({ skipIntro }: { skipIntro: boolean }) {
           >
             <p>
               Account storage is currently a project owner pilot. Public
-              visitors can use browser inventory. Your CROCS account is separate
-              from your Supabase dashboard account. Create a CROCS account here
+              visitors can use browser inventory. Your inventory account is separate
+              from your Supabase dashboard account. Create an inventory account here
               the first time.
             </p>
             <label>

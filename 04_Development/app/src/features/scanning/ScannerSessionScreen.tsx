@@ -195,7 +195,7 @@ export function ScannerSessionScreen({
           : cameraOutcome === "multiple"
             ? {
                 title: "More than one item",
-                detail: "CROCS cannot tell which product to add.",
+                detail: "The app cannot tell which product to add.",
               }
             : cameraOutcome === "low-confidence"
               ? {
@@ -493,7 +493,7 @@ export function ScannerSessionScreen({
             >
               <h2 id="multiple-products-heading">Show one item at a time</h2>
               <p>
-                Move the other groceries out of view so CROCS knows which
+                Move the other groceries out of view so the app knows which
                 product to add.
               </p>
               <div className="camera-outcome-actions">
@@ -739,7 +739,7 @@ export function ScannerSessionScreen({
                 </button>
                 <h2 id="camera-permission-heading">Enable camera access</h2>
                 <p>
-                  CROCS uses the camera to recognize one grocery at a time,
+                  The app uses the camera to recognize one grocery at a time,
                   including its barcode and printed date.
                 </p>
                 <div className="camera-permission-privacy">
@@ -778,7 +778,7 @@ export function ScannerSessionScreen({
                 </p>
                 <ol className="camera-settings-steps">
                   <li>Open this site’s permissions in your browser.</li>
-                  <li>Allow camera access, then return to CROCS.</li>
+                  <li>Allow camera access, then return to the app.</li>
                 </ol>
                 <div className="camera-permission-actions">
                   <button

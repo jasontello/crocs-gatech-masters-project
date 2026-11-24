@@ -11,7 +11,7 @@ export function PortraitOnly({ children }: PortraitOnlyProps) {
       <aside className="landscape-lock" role="alert" aria-label="Portrait mode required">
         <div>
           <strong>Portrait mode only</strong>
-          <p>Rotate your phone upright to continue using CROCS.</p>
+          <p>Rotate your phone upright to continue using the app.</p>
         </div>
       </aside>
     </>

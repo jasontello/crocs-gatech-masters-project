@@ -1,6 +1,6 @@
 {
-  "name": "CROCS Refrigerator Inventory",
-  "short_name": "CROCS",
+  "name": "Refrigerator Inventory",
+  "short_name": "My Fridge",
   "start_url": "./",
   "display": "standalone",
   "orientation": "any",

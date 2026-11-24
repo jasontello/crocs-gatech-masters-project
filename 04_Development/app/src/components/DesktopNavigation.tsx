@@ -31,7 +31,7 @@ export function DesktopNavigation({
           </span>
         </span>
         <div>
-          <strong>CROCS</strong>
+          <strong>Fridge Inventory</strong>
           <span>Refrigerator inventory</span>
         </div>
       </div>

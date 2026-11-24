@@ -38,7 +38,7 @@ export function OpeningAnimation({ onComplete }: OpeningAnimationProps) {
           <span className="fridge-shelf fridge-shelf-two" />
         </div>
         <div className="intro-copy" role="status" aria-live="polite">
-          <span className="intro-eyebrow">CROCS prototype</span>
+          <span className="intro-eyebrow">Refrigerator inventory</span>
           <h1>Refrigerator inventory</h1>
           <p>See what you have. Use it before it goes to waste.</p>
         </div>

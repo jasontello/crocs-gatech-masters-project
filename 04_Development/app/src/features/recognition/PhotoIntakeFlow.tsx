@@ -263,7 +263,7 @@ export function PhotoIntakeFlow({
       <ScreenLayout
         className="photo-flow-screen"
         title="Review photo"
-        intro="Check the image before CROCS analyzes it. Nothing has been uploaded or saved."
+        intro="Check the image before the app analyzes it. Nothing has been uploaded or saved."
         onBack={resetPhoto}
         backLabel="Photo options"
       >
@@ -384,7 +384,7 @@ export function PhotoIntakeFlow({
       <ScreenLayout
         className="photo-flow-screen"
         title="Camera access is unavailable"
-        intro="CROCS could not open the camera. You can still choose a photo from this device."
+        intro="The app could not open the camera. You can still choose a photo from this device."
         onBack={() => setStep("capture")}
         backLabel="Photo options"
       >
@@ -425,7 +425,7 @@ export function PhotoIntakeFlow({
       <ScreenLayout
         className="photo-flow-screen"
         title="Confirm the food"
-        intro="The suggestion can be wrong. Confirm it before CROCS looks for a date."
+        intro="The suggestion can be wrong. Confirm it before the app looks for a date."
         onBack={resetPhoto}
         backLabel={initialDetection ? "Camera" : "Retake"}
       >
@@ -468,7 +468,7 @@ export function PhotoIntakeFlow({
       <ScreenLayout
         className="photo-flow-screen"
         title="Correct the food"
-        intro="Change the name before continuing. CROCS will carry it into manual details."
+        intro="Change the name before continuing. the app will carry it into manual details."
         onBack={() => setStep("confirm")}
         backLabel="Suggestion"
       >
@@ -586,7 +586,7 @@ export function PhotoIntakeFlow({
       <ScreenLayout
         className="photo-flow-screen"
         title="More context is needed"
-        intro="CROCS will not create a precise date when preparation or refrigeration history is unknown."
+        intro="The app will not create a precise date when preparation or refrigeration history is unknown."
         onBack={() => setStep("opened")}
         backLabel="Questions"
       >

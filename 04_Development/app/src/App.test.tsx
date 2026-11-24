@@ -63,7 +63,7 @@ describe("unified camera grocery flow", () => {
 
     expect(screen.getByRole("heading", { name: "Camera access is off" })).toBeInTheDocument();
     expect(screen.getByText("Open this site’s permissions in your browser.")).toBeInTheDocument();
-    expect(screen.getByText(/allow camera access, then return to CROCS/i)).toBeInTheDocument();
+    expect(screen.getByText(/allow camera access, then return to the app/i)).toBeInTheDocument();
 
     await user.click(screen.getByRole("button", { name: "Enter manually" }));
     expect(screen.getByRole("heading", { name: "Enter grocery manually" })).toBeInTheDocument();

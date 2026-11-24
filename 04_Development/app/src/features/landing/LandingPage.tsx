@@ -52,9 +52,9 @@ export function LandingPage() {
                 <span className="fridge-shelf fridge-shelf-two" />
               </span>
             </span>
-            <span className="landing-wordmark">CROCS</span>
+            <span className="landing-wordmark">Fridge Inventory</span>
           </span>
-          <span className="landing-header-context">Georgia Tech research project</span>
+          <span className="landing-header-context">Research prototype</span>
         </div>
       </header>
 
@@ -62,7 +62,7 @@ export function LandingPage() {
         <section className="landing-hero landing-container" aria-labelledby="landing-title">
           <div className="landing-hero-copy">
             <p className="landing-kicker">Refrigerator inventory research</p>
-            <h1 id="landing-title">CROCS Refrigerator Inventory</h1>
+            <h1 id="landing-title">Refrigerator Inventory</h1>
             <p className="landing-lead">
               A camera-assisted refrigerator inventory research prototype exploring ways to make
               household food tracking easier and help reduce avoidable food waste.
@@ -231,7 +231,7 @@ export function LandingPage() {
             </div>
             <div className="landing-copy">
               <p>
-                This Georgia Tech CROCS project is an interaction prototype for exploring the food
+                This project is an interaction prototype for exploring the food
                 logging workflow. Inventory management, local photo preview, and browser storage
                 work; recognition is simulated so the review and recovery paths can be explored.
                 In Scan groceries, take or choose a barcode photo. Check the decoded digits or type a package barcode to look up its name in Open Food Facts. Try 3017620422003, review the suggestion, and add the date from your package.
@@ -245,6 +245,15 @@ export function LandingPage() {
                 are mentor review and a pilot before evaluating the intake paths. No completed participant studies or
                 measured reductions in logging effort or food waste are reported here.
               </p>
+            </div>
+          </section>
+
+          <section className="landing-section landing-section-split" aria-labelledby="privacy-heading">
+            <h2 id="privacy-heading">Privacy and security</h2>
+            <div className="landing-copy">
+              <p>Try the sample fridge without signing in. Groceries you add in browser mode stay in this browser profile. Anyone using the same profile can see them. Clearing this site's browser data removes the local inventory.</p>
+              <p>Your barcode photo stays on your device. When you select Look up product, Open Food Facts receives the barcode digits and can see your device's internet address. You can enter the product name manually to skip the lookup.</p>
+              <p>In the account pilot, Supabase handles sign-in. Save to account sends your fridge names and grocery records to Supabase. Database access rules limit each signed-in user to their own inventory. Sign out after using a shared device.</p>
             </div>
           </section>
 
@@ -296,8 +305,6 @@ export function LandingPage() {
             <h2 id="information-heading">Project Information</h2>
             <div className="landing-project-information">
               <p><strong>Researcher:</strong> Jason Tello</p>
-              <p>Georgia Institute of Technology</p>
-              <p>CS 8903, Computing Research Opportunities for Conservation and Sustainability (CROCS)</p>
               <p><a className="landing-text-link" href={repositoryUrl}>View the GitHub repository</a></p>
             </div>
           </section>
@@ -305,7 +312,7 @@ export function LandingPage() {
       </main>
 
       <footer className="landing-footer">
-        <div className="landing-container">CROCS Refrigerator Inventory · Georgia Tech CS 8903</div>
+        <div className="landing-container">Refrigerator Inventory</div>
       </footer>
     </div>
   );

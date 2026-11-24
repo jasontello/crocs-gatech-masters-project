@@ -108,7 +108,7 @@ export function BarcodeLookup({
         Look up product
       </button>
       <span>
-        Product data from{" "}
+        Your photo stays on this device. Look up product sends the barcode digits to{" "}
         <a href="https://world.openfoodfacts.org/">Open Food Facts</a>
       </span>
       <span role="status">{message}</span>

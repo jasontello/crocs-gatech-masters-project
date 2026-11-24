@@ -6,7 +6,7 @@ test("landing page introduces the research project and has no serious accessibil
 }) => {
   await page.goto("./");
 
-  await expect(page.getByRole("heading", { name: "CROCS Refrigerator Inventory" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Refrigerator Inventory", exact: true })).toBeVisible();
   await expect(page.getByRole("heading", { name: "The Problem" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Research Goal" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Prototype", exact: true })).toBeVisible();
@@ -44,7 +44,7 @@ test("prototype homepage works at a mobile viewport and has no serious accessibi
   await page.goto("./?prototype&skipIntro");
 
   await expect(page.getByRole("heading", { name: "Your fridge" })).toBeVisible();
-  await expect(page.getByText("Georgia Tech CS 8903")).toBeVisible();
+  await expect(page.getByText(/Research demo with sample groceries/)).toBeVisible();
   await expect(page.getByRole("button", { name: "Scan groceries" })).toBeVisible();
   await expect(page.getByRole("navigation", { name: "Primary navigation" })).toBeVisible();
 
@@ -69,7 +69,7 @@ test("the production build exposes an installable offline PWA shell", async ({
   const manifestResponse = await page.request.get("./manifest.webmanifest");
   expect(manifestResponse.ok()).toBe(true);
   const manifest = await manifestResponse.json();
-  expect(manifest.name).toBe("CROCS Refrigerator Inventory");
+  expect(manifest.name).toBe("Refrigerator Inventory");
   expect(manifest.icons).toEqual(
     expect.arrayContaining([
       expect.objectContaining({ sizes: "192x192" }),
@@ -88,7 +88,7 @@ test("the production build exposes an installable offline PWA shell", async ({
     .toBe(true);
   await context.setOffline(true);
   await page.reload();
-  await expect(page.getByRole("heading", { name: "CROCS Refrigerator Inventory" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Refrigerator Inventory", exact: true })).toBeVisible();
   await page.getByRole("link", { name: "Launch Prototype" }).first().click();
   await expect(page.getByRole("heading", { name: "Your fridge" })).toBeVisible();
   await context.setOffline(false);
@@ -98,7 +98,7 @@ test("landing page and prototype remain usable in landscape", async ({ page }) =
   await page.setViewportSize({ width: 844, height: 390 });
   await page.goto("./");
 
-  await expect(page.getByRole("heading", { name: "CROCS Refrigerator Inventory" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Refrigerator Inventory", exact: true })).toBeVisible();
   await expect(page.getByRole("link", { name: "Launch Prototype" }).first()).toBeVisible();
   await page.goto("./?prototype&skipIntro");
 
